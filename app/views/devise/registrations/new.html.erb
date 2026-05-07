@@ -1,31 +1,81 @@
-<div>
-<h2>Sign up</h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <p><%= f.label :email %></p>
-    <p><%= f.email_field :email, autofocus: true, autocomplete: "email" %></p>
+<main class="min-h-screen flex flex-col items-center justify-center">
+  <div class="py-4 px-4 md:px-8 ">
+    <div class="grid items-center max-w-4xl shadow-md rounded-lg bg-white w-full lg:grid-cols-2">
+      <!-- Form -->
+      <div class="rounded-lg p-6 max-w-md mx-auto md:p-8 lg:mx-0 ">
+        <div class="mb-8">
+          <h1 class="text-3xl font-bold mb-4">
+            Create an account
+          </h1>
+          <p class="text-base leading-relaxed">
+            Create your account to unlock your dashboard and manage your projects.
+          </p>
+        </div>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <!-- Email -->
+          <div class="mb-4">
+            <%= f.label :email,
+              class: "mb-2 font-medium text-sm inline-block" %>
+            <%= f.email_field :email, autofocus: true,autocomplete: "email",
+              class: "px-3 h-[35px]  text-sm rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600", placeholder: "Email",
+              data:{
+                form_validation_target: "input",
+                validation_type: "email",
+                validation_required: "true",
+                validation_label: "Email",
+                validation_error_id: "email-error",
+                action: "blur->form-validation#validateField input->form-validation#clearError"
+              } %>
+            <span id="email-error" class="hidden text-red-500 text-xs mt-1 block"></span>
+          </div>
+          <!-- Password -->
+          <div class="mb-4">
+            <%= f.label :password,
+              class: "mb-2 font-medium text-sm inline-block" %>
+            <%= f.password_field :password, autocomplete: "new-password",
+              class: "px-3 h-[35px]  text-sm rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600", placeholder: "Password",
+              data:{
+                form_validation_target: "input",
+                validation_type: "password",
+                validation_required: "true",
+                validation_label: "Password",
+                validation_error_id: "password-error",
+                action: "blur->form-validation#validateField input->form-validation#clearError"
+              } %>
+            <span id="password-error" class="hidden text-red-500 text-xs mt-1 block"></span>
+          </div>
+          <!-- Password Confirmation -->
+          <div class="mb-4">
+            <%= f.label :password_confirmation,
+              class: "mb-2 font-medium text-sm inline-block" %>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password",
+              class: "px-3 h-[35px]  text-sm rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600", placeholder: "Confirm Password",
+              data:{
+                form_validation_target: "input",
+                validation_type: "password",
+                validation_required: "true",
+                validation_label: "Password Confirmation",
+                validation_error_id: "password-confirmation-error",
+                action: "blur->form-validation#validateField input->form-validation#clearError"
+              } %>
+            <span id="password-confirmation-error" class="hidden text-red-500 text-xs mt-1 block"></span>
+          </div>
+          <div>
+            <%= f.submit "Sign up", class: "w-full py-2 px-3.5 text-sm rounded-md font-semibold cursor-pointer tracking-wide text-white border border-blue-600 bg-blue-600 hover:bg-blue-700 transition-all" %>
+            <div class="mt-4 text-sm text-center">
+              <p>Already have an account?<%= link_to "Log in", new_session_path(resource_name) , class: "text-blue-700 hover:underline ml-1 font-medium " %></p>
+            </div>
+            <div class="mt-4 text-sm flex text-center gap-2 justify-center">
+              <p>Didn't receive confirmation instructions?</p>
+                <%= link_to "Click here", new_confirmation_path(resource_name) , class: "text-blue-700 hover:underline ml-1 font-medium " %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <!-- Image -->
+      <div class="aspect-[71/50] max-lg:w-4/5 mx-auto p-6">
+        <img src="https://readymadeui.com/images/integration-illus.webp" class="w-full object-cover" alt="login image" />
+      </div>
+    </div>
   </div>
-
-  <div class="field">
-    <p><%= f.label :password %></p>
-    <% if @minimum_password_length %>
-      <p><em>(<%= @minimum_password_length %> characters minimum)</em></p>
-    <% end %>
-    <p><%= f.password_field :password, autocomplete: "new-password" %></p>
-  </div>
-
-  <div class="field">
-    <p><%= f.label :password_confirmation %></p>
-    <p><%= f.password_field :password_confirmation, autocomplete: "new-password" %></p>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
-</div>
+</main>
