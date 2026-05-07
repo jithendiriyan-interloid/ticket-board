@@ -77,3 +77,4 @@ gem 'devise', '~> 5.0', '>= 5.0.3'
 
 gem 'tailwindcss-rails', '~> 4.4'
 gem "factory_bot", "~> 6.6"
+gem 'tailwindcss-rails', '~> 4.4'
