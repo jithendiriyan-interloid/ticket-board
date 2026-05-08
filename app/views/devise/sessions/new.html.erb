@@ -13,6 +13,7 @@
         </div>
         <%= form_for(resource, as: resource_name, url: session_path(resource_name), html:{
           data:{
+            form_validation_target: "password",
             controller: "form-validation",
             action: "submit->form-validation#validate"
           } }) do |f| %>
@@ -30,7 +31,7 @@
                 validation_error_id: "email-error",
                 action: "blur->form-validation#validateField input->form-validation#clearError"
               } %>
-              <span id="email-error" class="hidden text-red-500 text-xs mt-1 block"></span>
+            <span id="email-error" class="hidden text-red-500 text-xs mt-1 block"></span>
           </div>
           <!-- Password -->
           <div class="mb-4">
@@ -46,7 +47,7 @@
                 validation_error_id: "password-error",
                 action: "blur->form-validation#validateField input->form-validation#clearError"
               } %>
-              <span id="password-error" class="hidden text-red-500 text-xs mt-1 block"></span>
+            <span id="password-error" class="hidden text-red-500 text-xs mt-1 block"></span>
           </div>
           <!-- Remember + Forgot -->
           <div class="flex items-center gap-2 mb-6">
@@ -65,7 +66,6 @@
           <%= f.submit "Log in", class: "w-full py-2 px-3.5 text-sm rounded-md font-semibold cursor-pointer tracking-wide text-white border border-blue-600 bg-blue-600 hover:bg-blue-700 transition-all" %>
           <div class="mt-4 text-sm text-center">Don't have an account?<%= link_to "Sign up", new_registration_path(resource_name), class: "text-blue-700 hover:underline ml-1 font-medium " %>
           </div>
-
           <div class="mt-4 text-sm text-center">Didn't receive unlock instructions?<%= link_to "Click here", new_unlock_path(resource_name), class: "text-blue-700 hover:underline ml-1 font-medium " %>
           </div>
         <% end %>

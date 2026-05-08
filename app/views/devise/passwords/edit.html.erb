@@ -11,7 +11,7 @@
             Make sure to choose a strong password that you haven't used before.
           </p>
         </div>
-        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, data: { controller: "form-validation", action: "submit->form-validation#validate" } }) do |f| %>
           <%= render "devise/shared/error_messages", resource: resource %>
           <%= f.hidden_field :reset_password_token %>
           <!-- Password -->
@@ -24,6 +24,8 @@
                 validation_type: "password",
                 validation_required: "true",
                 validation_label: "Password",
+                validation_min_length: "6",
+                validation_special_character: "true",
                 validation_error_id: "password-error",
                 action: "blur->form-validation#validateField input->form-validation#clearError"
               } %>
@@ -40,6 +42,7 @@
                 validation_required: "true",
                 validation_label: "Password Confirmation",
                 validation_error_id: "password-confirmation-error",
+                validation_match: "#user_password",
                 action: "blur->form-validation#validateField input->form-validation#clearError"
               } %>
             <span id="password-confirmation-error" class="hidden text-red-500 text-xs mt-1 block"></span>

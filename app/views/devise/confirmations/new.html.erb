@@ -10,7 +10,7 @@
           <p class="text-sm text-gray-600">
             Enter your email address and we'll send you instructions to unlock your account.
           </div>
-          <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+          <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post,  data: { controller: "form-validation", action: "submit->form-validation#validate" }}) do |f| %>
             <%= render "devise/shared/error_messages", resource: resource %>
             <!-- Email -->
             <div class="mb-4">
