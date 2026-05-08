@@ -19,6 +19,7 @@
   </head>
   <body>
     <main>
+      <%= render "shared/navbar" if hide_navbar? %>
       <%= render "devise/shared/flash_messages" %>
       <%= yield %>
     </main>

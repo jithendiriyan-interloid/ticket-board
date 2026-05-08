@@ -7,7 +7,7 @@
           <h1 class="text-3xl font-bold mb-4">Create an account</h1>
           <p class="text-base leading-relaxed">Create your account to unlock your dashboard and manage your projects.</p>
         </div>
-        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), data:{controller: "form-validation",action: "submit->form-validation#validate" } ) do |f| %>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), data:{controller: "form-validation",action: "submit->form-validation#validateForm" } ) do |f| %>
           <%= render "devise/shared/error_messages", resource: resource %>
           <!-- Email -->
           <div class="mb-4">
