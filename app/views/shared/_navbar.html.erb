@@ -1,0 +1,27 @@
+<nav class="fixed top-0 z-50 w-full bg-white shadow-sm transition-colors duration-300">
+  <div class="flex flex-wrap items-center gap-3 px-3 py-3 sm:px-6 lg:px-10">
+    <!-- Logo -->
+    <div class="flex shrink-0 items-center gap-2 sm:gap-3">
+      <span class="text-sm font-semibold text-slate-900 sm:text-lg">Ticket Board</span>
+    </div>
+    <!-- Search Bar -->
+    <div class="order-3 w-full sm:order-none sm:flex-1">
+      <div class="relative w-full max-w-xl sm:mx-auto">
+        <svg class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/> </svg>
+        <input type="text"placeholder="Search..."class="w-full rounded-2xl border border-gray-200 bg-white py-2 pl-9 pr-3 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+      </div>
+    </div>
+    <!-- Buttons -->
+    <div class="ml-auto flex shrink-0 items-center gap-2 sm:gap-4">
+      <button class="rounded-2xl bg-blue-600 px-3 py-2 text-sm font-semibold text-white hover:bg-blue-700 sm:px-4 lg:px-5">Create</button>
+      <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "rounded-2xl bg-blue-600 px-3 py-2 text-sm font-semibold text-white hover:bg-blue-700 sm:px-4 lg:px-5" %>
+    </div>
+    <!--Toggle-->
+    <button id="themeToggle" type="button" aria-label="Toggle theme" class="group relative inline-flex h-7 w-12 items-center rounded-full bg-gray-200 p-1 transition-colors hover:bg-gray-300 focus:outline-none focus:ring-offset-2">
+      <span class="sr-only">Toggle theme</span>
+      <span class="inline-block h-5 w-5 rounded-full bg-white shadow transition-transform group-[.is-active]:translate-x-5 "></span>
+    </button>
+
+  </div>
+
+</nav>
