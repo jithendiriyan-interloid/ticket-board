@@ -4,12 +4,8 @@
       <!-- Form -->
       <div class="rounded-lg p-6 max-w-md mx-auto md:p-8 lg:mx-0 ">
         <div class="mb-2">
-          <h1 class="text-3xl font-bold mb-4">
-            Forgot your password?
-          </h1>
-          <p class="text-base leading-relaxed">
-            Enter your email address below and we'll send you instructions.
-          </p>
+          <h1 class="text-3xl font-bold mb-4">Forgot your password?</h1>
+          <p class="text-base leading-relaxed">Enter your email address below and we'll send you instructions.</p>
         </div>
         <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, data: { controller: "form-validation", action: "submit->form-validation#validate" } }) do |f| %>
           <%= render "devise/shared/error_messages", resource: resource %>
@@ -17,14 +13,7 @@
           <div class="mb-4">
             <%= f.label :email, class: "mb-2 font-medium text-sm inline-block" %>
             <%= f.email_field :email, autofocus: true,autocomplete: "email", class: "px-3 h-[35px]  text-sm rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600", placeholder: "Email",
-              data:{
-                form_validation_target: "input",
-                validation_type: "email",
-                validation_required: "true",
-                validation_label: "Email",
-                validation_error_id: "email-error",
-                action: "blur->form-validation#validateField input->form-validation#clearError"
-              } %>
+            data:{form_validation_target: "input",validation_type: "email",validation_required: "true",validation_label: "Email",validation_error_id: "email-error",action: "blur->form-validation#validateField input->form-validation#clearError"} %>
             <span id="email-error" class="hidden text-red-500 text-xs mt-1 block"></span>
           </div>
           <div>

@@ -4,68 +4,30 @@
       <!-- Form -->
       <div class="rounded-lg p-6 max-w-md mx-auto md:p-8 lg:mx-0 ">
         <div class="mb-8">
-          <h1 class="text-3xl font-bold mb-4">
-            Create an account
-          </h1>
-          <p class="text-base leading-relaxed">
-            Create your account to unlock your dashboard and manage your projects.
-          </p>
+          <h1 class="text-3xl font-bold mb-4">Create an account</h1>
+          <p class="text-base leading-relaxed">Create your account to unlock your dashboard and manage your projects.</p>
         </div>
-        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html:{
-          data:{
-            controller: "form-validation",
-            action: "submit->form-validation#validate" } }) do |f| %>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), data:{controller: "form-validation",action: "submit->form-validation#validate" } ) do |f| %>
           <%= render "devise/shared/error_messages", resource: resource %>
           <!-- Email -->
           <div class="mb-4">
-            <%= f.label :email,
-              class: "mb-2 font-medium text-sm inline-block" %>
-            <%= f.email_field :email, autofocus: true,autocomplete: "email",
-              class: "px-3 h-[35px]  text-sm rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600", placeholder: "Email",
-              data:{
-                form_validation_target: "input",
-                validation_type: "email",
-                validation_required: "true",
-                validation_label: "Email",
-                validation_error_id: "email-error",
-                action: "blur->form-validation#validateField input->form-validation#clearError"
-              } %>
+            <%= f.label :email,class: "mb-2 font-medium text-sm inline-block" %>
+            <%= f.email_field :email, autofocus: true,autocomplete: "email", class: "px-3 h-[35px]  text-sm rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600", placeholder: "Email",
+            data:{form_validation_target: "input",validation_type: "email",validation_required: "true",validation_label: "Email",validation_error_id: "email-error",action: "blur->form-validation#validateField input->form-validation#clearError" } %>
             <span id="email-error" class="hidden text-red-500 text-xs mt-1 block"></span>
           </div>
           <!-- Password -->
           <div class="mb-4">
-            <%= f.label :password,
-              class: "mb-2 font-medium text-sm inline-block" %>
-            <%= f.password_field :password, autocomplete: "new-password",
-              class: "px-3 h-[35px]  text-sm rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600", placeholder: "Password",
-              data:{
-                password_visibility_target: "input",
-                form_validation_target: "input",
-                validation_type: "password",
-                validation_required: "true",
-                validation_label: "Password",
-                validation_error_id: "signup_password-error",
-                action: "blur->form-validation#validateField input->form-validation#clearError",
-                validation_min_length: "6",
-                validation_special_character: "true",
-              } %>
+            <%= f.label :password, class: "mb-2 font-medium text-sm inline-block" %>
+            <%= f.password_field :password, autocomplete: "new-password", class: "px-3 h-[35px]  text-sm rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600", placeholder: "Password",
+            data:{password_visibility_target: "input",form_validation_target: "input",validation_type: "password",validation_required: "true",validation_label: "Password",validation_error_id: "signup_password-error",action: "blur->form-validation#validateField input->form-validation#clearError",validation_min_length: "6",validation_special_character: "true" } %>
             <span id="signup_password-error" class="hidden text-red-500 text-xs mt-1 block"></span>
           </div>
           <!-- Password Confirmation -->
           <div class="mb-4">
-            <%= f.label :password_confirmation,
-              class: "mb-2 font-medium text-sm inline-block" %>
-            <%= f.password_field :password_confirmation, autocomplete: "new-password",
-              class: "px-3 h-[35px]  text-sm rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600", placeholder: "Confirm Password",
-              data:{
-                form_validation_target: "input",
-                validation_type: "password",
-                validation_required: "true",
-                validation_label: "Password Confirmation",
-                validation_error_id: "signup_password_confirmation_error",
-                action: "blur->form-validation#validateField input->form-validation#clearError",
-                validation_match: "#user_password",
-              } %>
+            <%= f.label :password_confirmation, class: "mb-2 font-medium text-sm inline-block" %>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "px-3 h-[35px]  text-sm rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600", placeholder: "Confirm Password",
+            data:{form_validation_target: "input",validation_type: "password",validation_required: "true",validation_label: "Password Confirmation",validation_error_id: "signup_password_confirmation_error",action: "blur->form-validation#validateField input->form-validation#clearError",validation_match: "#user_password"} %>
             <span id="signup_password_confirmation_error" class="hidden text-red-500 text-xs mt-1 block"></span>
           </div>
           <div>
