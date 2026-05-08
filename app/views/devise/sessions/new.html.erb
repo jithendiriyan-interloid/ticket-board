@@ -29,8 +29,7 @@
                 validation_required: "true",
                 validation_label: "Email",
                 validation_error_id: "email-error",
-                action: "blur->form-validation#validateField input->form-validation#clearError"
-              } %>
+                action: "blur->form-validation#validateField input->form-validation#clearError" } %>
             <span id="email-error" class="hidden text-red-500 text-xs mt-1 block"></span>
           </div>
           <!-- Password -->
@@ -45,8 +44,9 @@
                 validation_required: "true",
                 validation_label: "Password",
                 validation_error_id: "password-error",
-                action: "blur->form-validation#validateField input->form-validation#clearError"
-              } %>
+                validation_min_length: "6",
+                validation_special_character: "true",
+                action: "blur->form-validation#validateField input->form-validation#clearError" } %>
             <span id="password-error" class="hidden text-red-500 text-xs mt-1 block"></span>
           </div>
           <!-- Remember + Forgot -->
@@ -71,7 +71,7 @@
         <% end %>
       </div>
       <!-- Image -->
-      <div class="aspect-[71/50] max-lg:w-4/5 mx-auto p-6">
+      <div class="hidden lg:block aspect-[71/50] mx-auto p-6">
         <img src="https://readymadeui.com/images/integration-illus.webp" class="w-full object-cover" alt="login image" />
       </div>
     </div>
