@@ -39,15 +39,15 @@
           </div>
           <!--DropDown-->
           <div data-controller="dropdown" class="relative flex ">
-            <button data-dropdown-target="button" data-action="click->dropdown#toggle" class="rounded-2xl focus:outline-none">
+            <button data-dropdown-target="button" data-action="click->dropdown#toggle" class="rounded-md focus:outline-none">
               <%= image_tag "default_avatar.jpg", class: "w-10 h-10 rounded-full object-cover" %>
             </button>
-            <div data-dropdown-target="menu" class="hidden absolute top-16 right-0  bg-white rounded-2xl shadow-lg z-10">
-              <p class="block px-4 py-2 hover:bg-gray-100"> <%= current_user&.email %></p>
-              <a href="#" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
-              <a href="#" class="block px-4 py-2 hover:bg-gray-100">Settings</a>
+            <div data-dropdown-target="menu" class="hidden absolute top-16 right-0  bg-white rounded-md shadow-lg z-10">
+              <p class="block px-4 py-2 hover:bg-gray-100 hover:rounded-md"> <%= current_user&.email %></p>
+              <a href="#" class="block px-4 py-2 hover:bg-gray-100 hover:rounded-md">Profile</a>
+              <a href="#" class="block px-4 py-2 hover:bg-gray-100 hover:rounded-md">Settings</a>
               <hr class="border-t border-gray-200">
-              <%= link_to "Sign out",destroy_user_session_path,data: { turbo_method: :delete },class: "block px-4 py-2 hover:bg-gray-100"%>
+              <%= link_to "Sign out",destroy_user_session_path,data: { turbo_method: :delete },class: "block px-4 py-2 text-red-500 hover:bg-red-100 hover:rounded-md"%>
             </div>
           </div>
         </div>

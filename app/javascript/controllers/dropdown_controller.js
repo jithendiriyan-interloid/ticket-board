@@ -1,6 +1,6 @@
 import {Controller} from "@hotwired/stimulus"
 export default class extends Controller {
-    static targets=["menu","button"]
+    static targets=["menu"]
     connect() {
         this.handleOutsideClick=this.hide.bind(this)
         document.addEventListener("click",this.handleOutsideClick)
