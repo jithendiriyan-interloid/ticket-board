@@ -1,0 +1,49 @@
+<main class="min-h-screen flex flex-col items-center justify-center">
+  <div class="py-4 px-4 md:px-8 ">
+    <div class="grid items-center max-w-4xl shadow-md rounded-lg bg-white w-full ">
+      <!-- Form -->
+      <div class="rounded-lg p-6 max-w-md mx-auto md:p-8 lg:mx-0 ">
+        <div class="mb-2">
+          <h2>Edit <%= resource_name.to_s.humanize %></h2>
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put , data:{controller: "form-validation", action: "submit->form-validation#validate" } }) do |f| %>
+            <%= render "devise/shared/error_messages", resource: resource %>
+            <!-- Email -->
+            <div class="mb-4">
+              <%= f.label :email, class: "mb-2 font-medium text-sm inline-block" %>
+              <%= f.email_field :email, autofocus: true,autocomplete: "email", class: "px-3 h-[35px]  text-sm rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600", placeholder: "Email",
+              data:{form_validation_target: "input",validation_type: "email",validation_required: "true",validation_label: "Email",validation_error_id: "email-error",action: "blur->form-validation#validateField input->form-validation#clearError"} %>
+              <span id="email-error" class="hidden text-red-500 text-xs mt-1 block"></span>
+            </div>
+            <!-- password -->
+            <div class="mb-4">
+              <%= f.label :password,class: "mb-2 font-medium text-sm inline-block" %> <i>(leave blank if you don't want to change it)</i>
+              <%= f.password_field :password, autocomplete: "new-password", class: "px-3 h-[35px]  text-sm rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600", placeholder: "Password",
+              data:{form_validation_target: "input",validation_type: "password",validation_required: "false",validation_label: "Password",validation_error_id: "password-error",action: "blur->form-validation#validateField input->form-validation#clearError"} %>
+              <span id="password-error" class="hidden text-red-500 text-xs mt-1 block"></span>
+            </div>
+            <!-- password -->
+            <div class="mb-4">
+              <%= f.label :password_confirmation,class: "mb-2 font-medium text-sm inline-block" %>
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "px-3 h-[35px]  text-sm rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600", placeholder: "Password",
+              data:{form_validation_target: "input",validation_type: "password",validation_required: "false",validation_label: "Password Confirmation",validation_error_id: "password-confirmation-error",action: "blur->form-validation#validateField input->form-validation#clearError"} %>
+              <span id="password-confirmation-error" class="hidden text-red-500 text-xs mt-1 block"></span>
+            </div>
+            <!-- password confirmation -->
+            <div class="mb-4">
+              <%= f.label :current_password,class: "mb-2 font-medium text-sm inline-block" %>
+              <%= f.password_field :current_password, autocomplete: "current-password", class: "px-3 h-[35px]  text-sm rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600", placeholder: "Password",
+              data:{form_validation_target: "input",validation_type: "password",validation_required: "true",validation_label: "Current Password",validation_error_id: "current-password-error",action: "blur->form-validation#validateField input->form-validation#clearError"} %>
+              <span id="current-password-error" class="hidden text-red-500 text-xs mt-1 block"></span>
+            </div>
+            <div>
+              <%= f.submit "Update" , class: "w-full py-2 px-3.5 text-sm rounded-md font-semibold cursor-pointer tracking-wide text-white border border-blue-600 bg-blue-600 hover:bg-blue-700 transition-all" %>
+            </div>
+          <% end %>
+        </div>
+        <h3>Cancel my account</h3>
+        <div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
+        <%= link_to "Back", :back %>
+      </div>
+    </div>
+  </div>
+</main>
