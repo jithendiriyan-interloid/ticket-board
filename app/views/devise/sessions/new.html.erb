@@ -7,19 +7,19 @@
           <h1 class="text-3xl font-bold mb-4">Welcome back!</h1>
           <p class="text-base leading-relaxed">Sign in to your account to access your dashboard and manage your projects.</p>
         </div>
-        <%= form_for(resource, as: resource_name, url: session_path(resource_name), data:{form_validation_target: "password", controller: "form-validation", action: "submit->form-validation#validate" }) do |f| %>
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name), data:{form_validation_target: "password", controller: "form-validation", action: "submit->form-validation#validateForm" }) do |f| %>
           <!-- Email -->
           <div class="mb-4">
             <%= f.label :email, class: "mb-2 font-medium text-sm inline-block" %>
             <%= f.email_field :email, autofocus: true,autocomplete: "email", class: "px-3 h-[35px]  text-sm rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600", placeholder: "Email",
-            data:{ form_validation_target: "input", validation_type: "email", validation_required: "true", validation_label: "Email", validation_error_id: "email-error", action: "blur->form-validation#validateField input->form-validation#clearError" } %>
+            data:{ form_validation_target: "input", validation_type: "email", validation_required: "true", validation_label: "Email", validation_error_id: "email-error", action: "blur->form-validation#validateField input->form-validation#handleInput" } %>
             <span id="email-error" class="hidden text-red-500 text-xs mt-1 block"></span>
           </div>
           <!-- Password -->
           <div class="mb-4">
             <%= f.label :password,class: "mb-2 font-medium text-sm inline-block" %>
             <%= f.password_field :password, autocomplete: "current-password", class: "px-3 h-[35px]  text-sm rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600", placeholder: "Password",
-            data:{form_validation_target: "input", validation_type: "password", validation_required: "true", validation_label: "Password", validation_error_id: "password-error", validation_min_length: "6", validation_special_character: "true", action: "blur->form-validation#validateField input->form-validation#clearError" } %>
+            data:{form_validation_target: "input", validation_type: "password", validation_required: "true", validation_label: "Password", validation_error_id: "password-error", validation_min_length: "6", validation_special_character: "true", action: "blur->form-validation#validateField input->form-validation#handleInput" } %>
             <span id="password-error" class="hidden text-red-500 text-xs mt-1 block"></span>
           </div>
           <!-- Remember + Forgot -->

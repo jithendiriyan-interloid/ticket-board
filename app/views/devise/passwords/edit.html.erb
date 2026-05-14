@@ -7,21 +7,21 @@
           <h1 class="text-3xl font-bold mb-4">Change your password</h1>
           <p class="text-base leading-relaxed">Make sure to choose a strong password that you haven't used before.</p>
         </div>
-        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, data: { controller: "form-validation", action: "submit->form-validation#validate" } }) do |f| %>
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, data: { controller: "form-validation", action: "submit->form-validation#validateForm" } }) do |f| %>
           <%= render "devise/shared/error_messages", resource: resource %>
           <%= f.hidden_field :reset_password_token %>
           <!-- Password -->
           <div class="mb-4">
             <%= f.label :password, "New password", class: "mb-2 font-medium text-sm inline-block" %>
             <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "px-3 h-[35px]  text-sm rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600", placeholder: "Password",
-            data:{form_validation_target: "input",validation_type: "password",validation_required: "true",validation_label: "Password",validation_min_length: "6",validation_special_character: "true",validation_error_id: "password-error",action: "blur->form-validation#validateField input->form-validation#clearError"} %>
+            data:{form_validation_target: "input",validation_type: "password",validation_required: "true",validation_label: "Password",validation_min_length: "6",validation_special_character: "true",validation_error_id: "password-error",action: "blur->form-validation#validateField input->form-validation#handleInput"} %>
             <span id="password-error" class="hidden text-red-500 text-xs mt-1 block"></span>
           </div>
           <!-- Password Confirmation -->
           <div class="mb-4">
             <%= f.label :password_confirmation, "Confirm new password", class: "mb-2 font-medium text-sm inline-block" %>
             <%= f.password_field :password_confirmation, autocomplete: "new-password",class: "px-3 h-[35px]  text-sm rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600", placeholder: "Confirm Password",
-            data:{form_validation_target: "input",validation_type: "password",validation_required: "true",validation_label: "Password Confirmation",validation_error_id: "password-confirmation-error",validation_match: "#user_password",action: "blur->form-validation#validateField input->form-validation#clearError"} %>
+            data:{form_validation_target: "input",validation_type: "password",validation_required: "true",validation_label: "Password Confirmation",validation_error_id: "password-confirmation-error",validation_match: "#user_password",action: "blur->form-validation#validateField input->form-validation#handleInput"} %>
             <span id="password-confirmation-error" class="hidden text-red-500 text-xs mt-1 block"></span>
           </div>
           <div>
