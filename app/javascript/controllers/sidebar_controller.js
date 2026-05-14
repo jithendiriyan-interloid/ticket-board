@@ -6,10 +6,14 @@ export default class extends Controller {
     this.panelTarget.classList.toggle("-translate-x-full")
     this.iconTarget.classList.toggle("rotate-180")
 <<<<<<< HEAD
+<<<<<<< HEAD
     this.toggleTarget.classList.toggle("-right-10")
 =======
 
 >>>>>>> b1d0565 (sidebar collapse)
+=======
+    this.toggleTarget.classList.toggle("-right-10")
+>>>>>>> 270f36d (sidebar toggle implemented)
   }
 }
 
