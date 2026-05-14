@@ -11,5 +11,7 @@ export default class extends Controller {
   toggle() {
     this.panelTarget.classList.toggle("-translate-x-[220px]")
     this.iconTarget.classList.toggle("rotate-180")
+
   }
 }
+
