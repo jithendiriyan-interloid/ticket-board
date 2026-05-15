@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema[8.1].define(version: 2026_05_28_043809) do
+=======
+ActiveRecord::Schema[8.1].define(version: 2026_05_15_143838) do
+>>>>>>> 4105513 (Implemented UserProfile)
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -42,6 +46,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_28_043809) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+<<<<<<< HEAD
   create_table "activities", force: :cascade do |t|
     t.bigint "comment_id", null: false
     t.datetime "created_at", null: false
@@ -190,6 +195,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_28_043809) do
 
   create_table "users", force: :cascade do |t|
     t.string "avatar"
+=======
+  create_table "users", force: :cascade do |t|
+>>>>>>> 4105513 (Implemented UserProfile)
     t.string "city"
     t.datetime "confirmation_sent_at"
     t.string "confirmation_token"
@@ -207,7 +215,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_28_043809) do
     t.string "last_sign_in_ip"
     t.datetime "locked_at"
     t.string "phone"
+<<<<<<< HEAD
     t.integer "pincode"
+=======
+>>>>>>> 4105513 (Implemented UserProfile)
     t.datetime "remember_created_at"
     t.datetime "reset_password_sent_at"
     t.string "reset_password_token"
