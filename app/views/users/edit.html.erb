@@ -1,0 +1,44 @@
+<%= form_with model: @user, method: :patch, html: { multipart: true }, class: "px-4 mt-36" do |f| %>
+  <div class="max-w-4xl xl:min-w-sm mx-auto">
+    <div class="mb-7">
+      <h2 class="text-xl">Complete Your Details</h2>
+    </div>
+    <div class="grid grid-cols-1 xl:grid-cols-2 gap-x-8 gap-y-10">
+      <div class="relative">
+        <%= f.label :first_name, "First Name", class: "absolute -top-2 left-4 bg-white px-1.5 text-xs font-medium " %>
+        <%= f.text_field :first_name, required: true, class: "block w-full px-4 py-3 text-sm  bg-transparent rounded-md outline-1 -outline-offset-1 outline-slate-500 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600" %>
+      </div>
+      <div class="relative">
+        <%= f.label :last_name, "Last Name", class: "absolute -top-2 left-4 bg-white px-1.5 text-xs font-medium " %>
+        <%= f.text_field :last_name, class: "block w-full px-4 py-3 text-sm  bg-transparent rounded-md outline-1 -outline-offset-1 outline-slate-500 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600" %>
+      </div>
+      <div class="relative">
+        <%= f.label :avatar, "Avatar", class: "absolute -top-2 left-4 bg-white px-1.5 text-xs font-medium" %>
+        <%= f.file_field :avatar, accept: ".jpg,.jpeg,.png,.webp", class: "block w-full px-4 py-3 text-sm bg-transparent rounded-md outline-1 -outline-offset-1 outline-slate-500 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600" %>
+      </div>
+      <div class="relative">
+        <%= f.label :email, "Email address", class: "absolute -top-2 left-4 bg-white px-1.5 text-xs font-medium " %>
+        <%= f.email_field :email,  value:current_user&.email, readonly: true, required: true, class: "block w-full px-4 py-3 text-sm  bg-transparent rounded-md outline-1 -outline-offset-1 outline-slate-500 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600" %>
+      </div>
+      <div class="relative">
+        <%= f.label :phone, "Phone Number", class: "absolute -top-2 left-4 bg-white px-1.5 text-xs font-medium " %>
+        <%= f.telephone_field :phone, class: "block w-full px-4 py-3 text-sm  bg-transparent rounded-md outline-1 -outline-offset-1 outline-slate-500 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600" %>
+      </div>
+      <div class="relative">
+        <%= f.label :state, "State", class: "absolute -top-2 left-4 bg-white px-1.5 text-xs font-medium " %>
+        <%= f.text_field :state, class: "block w-full px-4 py-3 text-sm  bg-transparent rounded-md outline-1 -outline-offset-1 outline-slate-500 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600" %>
+      </div>
+      <div class="relative">
+        <%= f.label :city, "City", class: "absolute -top-2 left-4 bg-white px-1.5 text-xs font-medium " %>
+        <%= f.text_field :city, class: "block w-full px-4 py-3 text-sm  bg-transparent rounded-md outline-1 -outline-offset-1 outline-slate-500 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600" %>
+      </div>
+      <div class="relative ">
+        <%= f.label :street, "Address", class: "absolute -top-2 left-4 bg-white px-1.5 text-xs font-medium " %>
+        <%= f.text_field :street, class: "block w-full px-4 py-3 text-sm  bg-transparent rounded-md outline-1 -outline-offset-1 outline-slate-500 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600" %>
+      </div>
+      <div class="col-span-full flex justify-end gap-4">
+        <%= f.submit "Update", class: "py-2 px-3.5 text-sm rounded-md font-semibold cursor-pointer tracking-wide text-white border border-blue-600 bg-blue-600 hover:bg-blue-700 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500" %>
+        <%= f.submit "Delete", class: "py-2 px-3.5 text-sm rounded-md font-semibold cursor-pointer tracking-wide text-white border border-blue-600 bg-blue-600 hover:bg-blue-700 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500" %>
+      </div>
+    </div>
+  <% end %>
