@@ -13,6 +13,16 @@ class UsersController < ApplicationController
       redirect_to edit_user_path(current_user), alert: t("users.delete_failed")
     end
   end
+
+  def destroy
+    if current_user.soft_delete!
+      sign_out(current_user)
+      redirect_to root_path, notice: "Account was deleted successfully"
+    else
+      redirect_to edit_user_path(current_user), alert: "Unable to delete"
+    end
+  end
+
   def update
     if params[:remove_avatar]
       @user.avatar.purge
