@@ -1,34 +1,26 @@
 class UsersController < ApplicationController
-  def new
-    @user = current_user
-  end
-
-  def create
-    @user = current_user
-
-    if @user.update(profile_params)
-    puts "Saved successfully"
-    puts @user.reload.inspect
-      redirect_to root_path, notice: "Profile saved successfully"
-    else
-      puts @user.errors.full_messages
-      render :new, status: :unprocessable_entity
-    end
-  end
-
   def edit
     @user = current_user
   end
+
   def show
     @user = current_user
   end
+
+  def destroy
+    if current_user.soft_delete!
+      sign_out(current_user)
+      redirect_to root_path, notice: "Account was deleted successfully"
+    else
+      redirect_to edit_user_path(current_user), alert: "Unable to delete"
+    end
+  end
+
   def update
     @user = current_user
-
     if @user.update(profile_params)
       redirect_to root_path, notice: "Profile updated successfully"
     else
-      puts @user.errors.full_messages
       render :edit, status: :unprocessable_entity
     end
   end
@@ -43,7 +35,8 @@ class UsersController < ApplicationController
       :state,
       :city,
       :street,
-      :avatar
+      :avatar,
+      :remove_avatar
     )
   end
 end
