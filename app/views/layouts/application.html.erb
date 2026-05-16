@@ -92,7 +92,7 @@
                   <% end %>
                 </li>
                 <li>
-                  <%= link_to "#", class: "flex items-center gap-2.5 px-3 py-3 hover:bg-slate-100 rounded-lg transition-all" do %>
+                  <%= link_to edit_user_path(current_user), class: "flex items-center gap-2.5 px-3 py-3 hover:bg-slate-100 rounded-lg transition-all" do %>
                     <svg xmlns="http://www.w3.org/2000/svg" class="size-[18px] shrink-0 fill-current overflow-hidden" viewBox="0 0 32 32" aria-hidden="true">
                       <g data-name="Layer 2">
                         <path d="M24.915 3.663a3.15 3.15 0 0 0-2.688-1.554H9.774a3.15 3.15 0 0 0-2.688 1.554L.859 14.446a3.15 3.15 0 0 0 0 3.15l6.227 10.742a3.15 3.15 0 0 0 2.688 1.554h12.453a3.15 3.15 0 0 0 2.688-1.554l6.226-10.784a3.15 3.15 0 0 0 0-3.15zm4.41 12.841-6.227 10.784a1.05 1.05 0 0 1-.871.504H9.774a1.05 1.05 0 0 1-.872-.504L2.676 16.504a1.05 1.05 0 0 1 0-1.05L8.902 4.713a1.05 1.05 0 0 1 .872-.504h12.453a1.05 1.05 0 0 1 .871.504l6.227 10.783a1.05 1.05 0 0 1 0 1.008" />
@@ -114,7 +114,7 @@
           </div>
         </section>
       <%end%>
-      <main class="flex-1 p-6">
+      <main class="flex-1">
         <%= yield %>
       </main>
     </div>
