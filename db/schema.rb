@@ -10,15 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-ActiveRecord::Schema[8.1].define(version: 2026_05_28_043809) do
-=======
 ActiveRecord::Schema[8.1].define(version: 2026_05_15_143838) do
->>>>>>> 4105513 (Implemented UserProfile)
-=======
-ActiveRecord::Schema[8.1].define(version: 2026_05_20_143517) do
->>>>>>> 82166d6 (Userprofile section UI Updated)
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -50,10 +42,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_143517) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 82166d6 (Userprofile section UI Updated)
   create_table "activities", force: :cascade do |t|
     t.bigint "comment_id", null: false
     t.datetime "created_at", null: false
@@ -89,7 +77,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_143517) do
     t.index ["workspace_id"], name: "index_boards_on_workspace_id"
   end
 
-<<<<<<< HEAD
   create_table "cards", force: :cascade do |t|
     t.bigint "board_id", null: false
     t.datetime "created_at", null: false
@@ -101,8 +88,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_143517) do
     t.index ["status_id"], name: "index_cards_on_status_id"
   end
 
-=======
->>>>>>> 82166d6 (Userprofile section UI Updated)
   create_table "comments", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.text "description"
@@ -121,10 +106,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_143517) do
 
   create_table "memberships", force: :cascade do |t|
     t.datetime "created_at", null: false
-<<<<<<< HEAD
     t.integer "role", default: 0, null: false
-=======
->>>>>>> 82166d6 (Userprofile section UI Updated)
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.bigint "workspace_id", null: false
@@ -208,9 +190,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_143517) do
 
   create_table "users", force: :cascade do |t|
     t.string "avatar"
-=======
-  create_table "users", force: :cascade do |t|
->>>>>>> 4105513 (Implemented UserProfile)
     t.string "city"
     t.datetime "confirmation_sent_at"
     t.string "confirmation_token"
@@ -228,14 +207,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_143517) do
     t.string "last_sign_in_ip"
     t.datetime "locked_at"
     t.string "phone"
-<<<<<<< HEAD
-<<<<<<< HEAD
     t.integer "pincode"
-=======
->>>>>>> 4105513 (Implemented UserProfile)
-=======
-    t.integer "pin"
->>>>>>> 82166d6 (Userprofile section UI Updated)
     t.datetime "remember_created_at"
     t.datetime "reset_password_sent_at"
     t.string "reset_password_token"
@@ -254,16 +226,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_143517) do
 
   create_table "workspaces", force: :cascade do |t|
     t.datetime "created_at", null: false
-<<<<<<< HEAD
     t.text "description"
     t.string "name"
     t.bigint "owner_id"
     t.datetime "updated_at", null: false
     t.index ["owner_id"], name: "index_workspaces_on_owner_id"
-=======
-    t.string "name"
-    t.datetime "updated_at", null: false
->>>>>>> 82166d6 (Userprofile section UI Updated)
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -276,11 +243,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_143517) do
   add_foreign_key "board_sections", "statuses"
   add_foreign_key "boards", "projects"
   add_foreign_key "boards", "workspaces"
-<<<<<<< HEAD
   add_foreign_key "cards", "boards"
   add_foreign_key "cards", "statuses"
-=======
->>>>>>> 82166d6 (Userprofile section UI Updated)
   add_foreign_key "comments", "tasks"
   add_foreign_key "comments", "users"
   add_foreign_key "memberships", "users"
@@ -295,8 +259,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_143517) do
   add_foreign_key "tasks", "statuses"
   add_foreign_key "tasks", "story_points"
   add_foreign_key "tasks", "task_types"
-<<<<<<< HEAD
   add_foreign_key "workspaces", "users", column: "owner_id"
-=======
->>>>>>> 82166d6 (Userprofile section UI Updated)
 end

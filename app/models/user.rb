@@ -13,12 +13,12 @@ class User < ApplicationRecord
  def active_for_authentication?
   super && deleted_at.nil?
  end
-end
-
-private
-def avatar_size
-  return unless avatar.attached?
-  if avatar.blob.byte_size > 800.kilobytes
-    errors.add(:avatar, "Must lest than 800Kb")
-  end
+ def remove_avatar=(value)
+  avatar.purge if value == "1"
+ end
+  enum :role, {
+    member: 0,
+    owner: 1,
+    admin: 2
+  }
 end

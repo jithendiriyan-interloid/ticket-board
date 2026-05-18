@@ -1,20 +1,21 @@
 class UsersController < ApplicationController
    before_action :set_user
   def edit
-  end
-
-  def show
-  end
-
-  def destroy
-    if @user.soft_delete!
-      redirect_to root_path,  notice: t("users.deleted")
-    else
-      redirect_to edit_user_path(current_user), alert: t("users.delete_failed")
+    @user = current_user
+    authorize @user
+    if current_user.owner?
+        @users = User.all
     end
   end
 
+  def show
+    @user = current_user
+    authorize @user
+  end
+
   def destroy
+    @user = current_user
+    authorize @user
     if current_user.soft_delete!
       sign_out(current_user)
       redirect_to root_path, notice: "Account was deleted successfully"
@@ -24,12 +25,27 @@ class UsersController < ApplicationController
   end
 
   def update
+<<<<<<< HEAD
     if params[:remove_avatar]
       @user.avatar.purge
     elsif params.dig(:user, :avatar).present?
       @user.update(avatar: params[:user][:avatar])
     else
       @user.update(profile_params)
+=======
+    @user = User.find(params[:id])
+    authorize @user
+    if @user.update(profile_params)
+      redirect_back(
+        fallback_location: root_path,
+        notice: "User updated successfully"
+      )
+    else
+      redirect_back(
+        fallback_location: root_path,
+        alert: "Unable to update user"
+      )
+>>>>>>> 195d62b (Pundit authorization function added)
     end
       respond_to do |format|
       format.turbo_stream do
