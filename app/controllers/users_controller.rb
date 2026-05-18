@@ -1,13 +1,20 @@
 class UsersController < ApplicationController
   def edit
     @user = current_user
+    authorize @user
+    if current_user.owner?
+        @users = User.all
+    end
   end
 
   def show
     @user = current_user
+    authorize @user
   end
 
   def destroy
+    @user = current_user
+    authorize @user
     if current_user.soft_delete!
       sign_out(current_user)
       redirect_to root_path, notice: "Account was deleted successfully"
@@ -17,11 +24,18 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = current_user
+    @user = User.find(params[:id])
+    authorize @user
     if @user.update(profile_params)
-      redirect_to root_path, notice: "Profile updated successfully"
+      redirect_back(
+        fallback_location: root_path,
+        notice: "User updated successfully"
+      )
     else
-      render :edit, status: :unprocessable_entity
+      redirect_back(
+        fallback_location: root_path,
+        alert: "Unable to update user"
+      )
     end
   end
 
@@ -36,7 +50,8 @@ class UsersController < ApplicationController
       :city,
       :street,
       :avatar,
-      :remove_avatar
+      :remove_avatar,
+      :role
     )
   end
 end

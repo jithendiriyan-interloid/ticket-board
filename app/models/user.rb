@@ -16,4 +16,9 @@ class User < ApplicationRecord
  def remove_avatar=(value)
   avatar.purge if value == "1"
  end
+  enum :role, {
+    member: 0,
+    owner: 1,
+    admin: 2
+  }
 end

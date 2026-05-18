@@ -74,3 +74,5 @@ end
 gem 'devise', '~> 5.0', '>= 5.0.3'
 
 gem 'tailwindcss-rails', '~> 4.4'
+
+gem 'pundit', '~> 2.5', '>= 2.5.2'
