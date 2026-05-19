@@ -52,6 +52,8 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+  gem 'rspec-rails', '~> 8.0', '>= 8.0.1'
+  gem 'factory_bot_rails'
 end
 
 group :development do
@@ -74,3 +76,4 @@ end
 gem 'devise', '~> 5.0', '>= 5.0.3'
 
 gem 'tailwindcss-rails', '~> 4.4'
+gem "factory_bot", "~> 6.6"
