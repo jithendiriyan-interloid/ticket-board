@@ -5,10 +5,8 @@ export default class extends Controller {
 
   validateForm(event) {
     let firstInvalidInput = null
-
     this.inputTargets.forEach((input) => {
       const valid = this.validateInput(input)
-
       if (!valid && !firstInvalidInput) {
         firstInvalidInput = input
       }

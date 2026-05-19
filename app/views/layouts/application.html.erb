@@ -18,6 +18,42 @@
     <%= javascript_importmap_tags %>
   </head>
   <body>
+    <%= render "devise/shared/flash_messages" %>
+    <% if user_signed_in? %>
+      <nav class="sticky top-0 z-40 w-full bg-white shadow-sm transition-colors duration-300">
+        <div class="flex flex-wrap items-center gap-3 px-3 py-3 sm:px-6 lg:px-10">
+          <!-- Logo -->
+          <div class="flex shrink-0 items-center gap-2 sm:gap-3">
+            <span class="text-sm font-semibold text-slate-900 sm:text-lg">Ticket Board</span>
+          </div>
+          <!-- Search Bar -->
+          <div class="hidden sm:block order-3 w-full sm:order-none sm:flex-1">
+            <div class="relative w-full max-w-xl sm:mx-auto">
+              <svg class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/> </svg>
+              <input type="text"placeholder="Search..."class="w-full rounded-2xl border border-gray-200 bg-white py-2 pl-9 pr-3 text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+            </div>
+          </div>
+          <!-- Buttons -->
+          <div class="ml-auto flex shrink-0 items-center gap-2 sm:gap-4">
+            <button class="rounded-2xl bg-blue-600 px-3 py-2 text-sm font-semibold text-white hover:bg-blue-700 sm:px-4 lg:px-5">Create</button>
+          </div>
+          <!--DropDown-->
+          <div data-controller="dropdown" class="relative flex ">
+            <button data-dropdown-target="button" data-action="click->dropdown#toggle" class="rounded-md focus:outline-none">
+              <%= image_tag "default_avatar.jpg", class: "w-10 h-10 rounded-full object-cover" %>
+            </button>
+            <div data-dropdown-target="menu" class="hidden absolute top-16 right-0  bg-white rounded-md shadow-lg z-10">
+              <p class="block px-4 py-2 hover:bg-gray-100 hover:rounded-md"> <%= current_user&.email %></p>
+              <a href="#" class="block px-4 py-2 hover:bg-gray-100 hover:rounded-md">Profile</a>
+              <a href="#" class="block px-4 py-2 hover:bg-gray-100 hover:rounded-md">Settings</a>
+              <hr class="border-t border-gray-200">
+              <%= link_to "Sign out",destroy_user_session_path,data: { turbo_method: :delete },class: "block px-4 py-2 text-red-500 hover:bg-red-100 hover:rounded-md"%>
+            </div>
+          </div>
+        </div>
+      </nav>
+    <%end%>
+    <main>
     <main class="container mx-auto mt-28 px-5 flex">
        <p class="notice"><%= notice %></p>
        <p class="alert"><%= alert %></p>
