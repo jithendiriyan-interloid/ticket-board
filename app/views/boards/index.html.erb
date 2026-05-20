@@ -1,0 +1,36 @@
+<div class="px-4 mt-36">
+  <div class="w-[65%] mx-auto">
+    <div class="px-4 py-6 bg-transparent rounded-md">
+      <div class="mb-7 flex items-center justify-between">
+        <h2 class="text-xl font-semibold">Hello, <%= @user.first_name %> </h2>
+        <span class="text-xs text-gray-400 font-mono">
+          <%= pluralize(@statuses.sum { |s| s.tasks.count }, "task") %>
+        </span>
+      </div>
+      <div class="flex gap-3 overflow-x-auto pb-4">
+        <% status_colors = {
+             "Backlog"     => "#888780",
+             "In Progress" => "#378ADD",
+             "In Review"   => "#EF9F27",
+             "Done"        => "#1D9E75"
+           } %>
+        <% @statuses.each do |status| %>
+          <div class="bg-gray-50 rounded-xl border border-gray-200 w-60 flex-shrink-0 flex flex-col">
+            <!-- Status Header -->
+            <div class="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
+              <h3 class="text-sm font-medium text-gray-800 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full inline-block"
+                      style="background-color: <%= status_colors[status.name] || '#888780' %>">
+                </span>
+                <%= status.name %>
+              </h3>
+              <span class="text-xs font-mono text-gray-400 bg-white border border-gray-200 rounded-full px-2 py-0.5">
+                <%= status.tasks.count %>
+              </span>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
