@@ -36,7 +36,8 @@ class UsersController < ApplicationController
       :city,
       :street,
       :avatar,
-      :remove_avatar
+      :remove_avatar,
+      :pin
     )
   end
 end
