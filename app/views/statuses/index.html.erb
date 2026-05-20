@@ -1,0 +1,36 @@
+<div class="p-6">
+  <div class="flex items-center justify-between mb-6">
+    <div>
+      <h1 class="text-lg font-medium text-gray-900">Statuses</h1>
+      <p class="text-sm text-gray-500">Define the column stages for your Kanban board</p>
+    </div>
+    <%= link_to new_status_path, class: "inline-flex items-center gap-2 px-4 py-2 bg-gray-900 text-white text-sm rounded-lg hover:opacity-85" do %>
+      + New status
+    <% end %>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+    <% @statuses.each do |status| %>
+      <div class="bg-white border border-gray-200 rounded-xl p-4">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full" style="background-color: <%= status.color %>"></span>
+          <span class="text-sm font-medium text-gray-900"><%= status.name %></span>
+          <% if status.is_default? %>
+            <span class="ml-auto text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">Default</span>
+          <% end %>
+        </div>
+        <p class="text-xs text-gray-400 mt-2 ml-4"><%= status.tasks.count %> tasks</p>
+        <p class="text-xs text-gray-400 ml-4">Position <%= status.position %></p>
+
+        <div class="flex gap-2 mt-3 pt-3 border-t border-gray-100">
+          <%= link_to "Edit", edit_status_path(status), class: "flex-1 text-center text-xs py-1.5 rounded-md border border-gray-200 text-gray-500 hover:bg-gray-50" %>
+          <% unless status.is_default? %>
+            <%= button_to "Delete", status_path(status), method: :delete,
+                data: { turbo_confirm: "Delete '#{status.name}'? Tasks will be moved to the default status." },
+                class: "flex-1 text-xs py-1.5 rounded-md border border-red-200 text-red-500 hover:bg-red-50" %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

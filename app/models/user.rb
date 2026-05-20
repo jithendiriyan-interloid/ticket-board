@@ -21,4 +21,20 @@ class User < ApplicationRecord
     owner: 1,
     admin: 2
   }
+
+  has_many :statuses, dependent: :destroy
+  has_many :tasks,    dependent: :destroy
+
+  after_create :seed_default_statuses
+
+  private
+
+  def seed_default_statuses
+    defaults = [
+      { name: "To do",        color: "#888780", position: 1, is_default: true  },
+      { name: "In progress",  color: "#378ADD", position: 2, is_default: false },
+      { name: "Done",         color: "#639922", position: 3, is_default: false },
+    ]
+    defaults.each { |attrs| statuses.create!(attrs) }
+  end
 end

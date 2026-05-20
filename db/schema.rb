@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_18_090933) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_19_135417) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -40,6 +40,46 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_18_090933) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "board_statuses", force: :cascade do |t|
+    t.bigint "board_id", null: false
+    t.string "color"
+    t.datetime "created_at", null: false
+    t.boolean "is_default"
+    t.string "name"
+    t.integer "position"
+    t.datetime "updated_at", null: false
+    t.index ["board_id"], name: "index_board_statuses_on_board_id"
+  end
+
+  create_table "boards", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.string "name"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_boards_on_user_id"
+  end
+
+  create_table "statuses", force: :cascade do |t|
+    t.string "color", default: "#888780", null: false
+    t.datetime "created_at", null: false
+    t.boolean "is_default", default: false, null: false
+    t.string "name", null: false
+    t.integer "position", default: 0, null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id", "name"], name: "index_statuses_on_user_id_and_name", unique: true
+    t.index ["user_id"], name: "index_statuses_on_user_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.string "status"
+    t.string "title"
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -76,6 +116,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_18_090933) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  create_table "workspaces", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "created_by_id", null: false
+    t.string "created_by_type", null: false
+    t.text "description"
+    t.string "name"
+    t.datetime "updated_at", null: false
+    t.index ["created_by_type", "created_by_id"], name: "index_workspaces_on_created_by"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "board_statuses", "boards"
+  add_foreign_key "boards", "users"
+  add_foreign_key "statuses", "users"
 end
