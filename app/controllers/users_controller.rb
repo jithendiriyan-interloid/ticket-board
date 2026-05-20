@@ -55,7 +55,11 @@ class UsersController < ApplicationController
       :street,
       :avatar,
       :remove_avatar,
+<<<<<<< HEAD
       :pincode
+=======
+      :pin
+>>>>>>> 82166d6 (Userprofile section UI Updated)
     )
   end
 end

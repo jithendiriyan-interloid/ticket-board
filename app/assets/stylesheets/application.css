@@ -22,4 +22,8 @@ input[type="number"]::-webkit-inner-spin-button {
 /* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 82166d6 (Userprofile section UI Updated)
