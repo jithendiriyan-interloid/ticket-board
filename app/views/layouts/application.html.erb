@@ -22,7 +22,7 @@
     <div >
       <% if user_signed_in? %>
         <section>
-          <nav class=" top-0 z-40 h-full w-full sticky bg-white shadow-sm transition-colors duration-300">
+          <nav class="fixed top-0 left-0 right-0 z-100 bg-white shadow-sm">
             <div class="flex flex-wrap items-center gap-3 px-3 py-3 sm:px-6 lg:px-10">
               <!-- Logo -->
               <div class="flex shrink-0 items-center gap-2 sm:gap-3">
@@ -50,7 +50,7 @@
                 </button>
                 <div data-dropdown-target="menu" class="hidden absolute top-16 right-0 w-[270px] bg-white rounded-md shadow-lg z-10">
                   <p class="block px-4 py-2 hover:bg-gray-100 hover:rounded-md"> <%= current_user&.first_name.presence || current_user&.email %> </p>
-                  <%= link_to "Profile", user_path(current_user), class:"block px-4 py-2 hover:bg-gray-100 hover:rounded-md"%> 
+                  <%= link_to "Profile", user_path(current_user), class:"block px-4 py-2 hover:bg-gray-100 hover:rounded-md"%>
                   <a href="#" class="block px-4 py-2 hover:bg-gray-100 hover:rounded-md">Settings</a>
                   <hr class="border-t border-gray-200">
                   <%= link_to "Sign out",destroy_user_session_path,data: { turbo_method: :delete },class: "block px-4 py-2 text-red-500 hover:bg-red-100 hover:rounded-md"%>
@@ -62,7 +62,7 @@
         <!--sidebar-->
         <section >
           <div data-controller="sidebar">
-            <aside data-sidebar-target="panel" class=" bg-white border-r border-slate-300 h-full w-[235px] fixed top-10 left-0 transition-transform duration-300 ease-in-out py-6 px-4">
+            <aside data-sidebar-target="panel" class="fixed top-10 left-0 z-50 w-[235px] h-screen bg-white border-r border-slate-300 shadow-md transition-transform duration-300 ease-in-out py-6 px-4">
               <ul class="py-2 text-sm font-medium">
                 <li>
                   <%= link_to "#", class: "flex items-center gap-2.5 px-3 py-3 hover:bg-slate-100 rounded-lg transition-all" do %>
