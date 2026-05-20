@@ -21,4 +21,19 @@ class User < ApplicationRecord
     owner: 1,
     admin: 2
   }
+  has_many :membership
+  has_many :workspace, through: :membership
+
+  has_many :assigned_tasks,
+  class_name: 'Task',
+  foreign_key: :assignee_id
+  
+  has_many :assigned_subtasks,
+           class_name: 'Subtask',
+           foreign_key: :assignee_id
+
+  has_many :comments
+  has_many :activities
+  has_many :notifications
+
 end
