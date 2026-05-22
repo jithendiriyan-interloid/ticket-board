@@ -37,7 +37,7 @@
               </div>
               <!-- Buttons -->
               <div class="ml-auto flex shrink-0 items-center gap-2 sm:gap-4">
-                <button class="rounded-2xl bg-blue-600 px-3 py-2 text-sm font-semibold text-white hover:bg-blue-700 sm:px-4 lg:px-5">Create</button>
+               <%= link_to "Create", new_board_path, class:"rounded-2xl bg-blue-600 px-3 py-2 text-sm font-semibold text-white hover:bg-blue-700 sm:px-4 lg:px-5" %>
               </div>
               <!--DropDown-->
               <div data-controller="dropdown" class="relative flex ">
@@ -74,7 +74,7 @@
                   <% end %>
                 </li>
                 <li>
-                  <%= link_to "#", class: "flex items-center gap-2.5 px-3 py-3 hover:bg-slate-100 rounded-lg transition-all" do %>
+                  <%= link_to boards_path, class: "flex items-center gap-2.5 px-3 py-3 hover:bg-slate-100 rounded-lg transition-all" do %>
                     <svg xmlns="http://www.w3.org/2000/svg" class="size-[18px] shrink-0 fill-current overflow-hidden" viewBox="0 0 64 64" aria-hidden="true">
                       <path fill-rule="evenodd" d="M14.6 6.688c-7.29 0-13.2 5.862-13.2 13.092V41.6c0 7.23 5.91 13.092 13.2 13.092h24.2a2.2 2.182 0 1 0 0-4.364H14.6A8.8 8.728 0 0 1 5.8 41.6V24.144h52.8v7.637a2.2 2.182 0 1 0 4.4 0V19.78c0-7.23-5.91-13.092-13.2-13.092zm44 13.092H5.8a8.8 8.728 0 0 1 8.8-8.728h35.2a8.8 8.728 0 0 1 8.8 8.728" clip-rule="evenodd" />
                       <path d="M63 45.964a8.8 8.728 0 0 0-8.8-8.728H38.8a2.2 2.182 0 1 0 0 4.364h15.4a4.4 4.364 0 0 1 0 8.728h-1.84l.645-.64a2.2 2.182 0 1 0-3.11-3.085l-4.4 4.364a2.2 2.182 0 0 0 0 3.085l4.4 4.364a2.2 2.182 0 1 0 3.11-3.085l-.644-.64H54.2a8.8 8.728 0 0 0 8.8-8.727M12.4 28.508a2.2 2.182 0 1 0 0 4.364h8.8a2.2 2.182 0 1 0 0-4.364z" />

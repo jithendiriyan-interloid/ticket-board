@@ -76,3 +76,5 @@ gem 'devise', '~> 5.0', '>= 5.0.3'
 gem 'tailwindcss-rails', '~> 4.4'
 
 gem 'pundit', '~> 2.5', '>= 2.5.2'
+
+gem 'acts_as_list', '~> 0.7.2'

@@ -1,0 +1,17 @@
+<%= form_with model: [board, Card.new] do |f| %>
+
+  <%= f.hidden_field :status_id, value: status.id %>
+
+  <%= f.text_field :title,
+    placeholder: "Add a card...",
+    class: "w-full rounded-lg border-gray-300 text-sm mb-2" %>
+
+  <%= f.text_area :description,
+    rows: 2,
+    placeholder: "Description...",
+    class: "w-full rounded-lg border-gray-300 text-sm mb-2" %>
+
+  <%= f.submit "Add Card",
+    class: "w-full bg-black text-white rounded-lg py-2 text-sm" %>
+
+<% end %>

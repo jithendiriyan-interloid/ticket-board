@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   get "boards/index"
   devise_for :users
   resources :users, only: [:new, :update, :destroy, :edit, :index, :show, :create]
-  resources :boards
+  resources :boards do
+    resources :cards, only: [:create]
+  end
   resources :statuses, controller: "status", only: [:new, :create]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -16,5 +18,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  root "boards#index"
+  root "home#index"
 end
