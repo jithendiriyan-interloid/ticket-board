@@ -48,12 +48,10 @@ group :development, :test do
   gem "bundler-audit", require: false
 
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
-  gem "brakeman", require: false
+  gem "brakeman", require: true
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
-  gem 'rspec-rails', '~> 8.0', '>= 8.0.1'
-  gem 'factory_bot_rails'
 end
 
 group :development do
@@ -76,4 +74,5 @@ end
 gem 'devise', '~> 5.0', '>= 5.0.3'
 
 gem 'tailwindcss-rails', '~> 4.4'
-gem "factory_bot", "~> 6.6"
+
+gem 'pundit', '~> 2.5', '>= 2.5.2'
