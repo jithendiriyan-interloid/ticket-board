@@ -1,8 +1,10 @@
 class BoardsController < ApplicationController
+  before_action :load_board_dependencies, only: [:new, :create]
+
   def index
     @user = current_user
-    @statuses = Status.includes(:cards)
-    @boards = Board.all
+    @statuses = Status.order(:id)
+    @boards = Board.includes(project: :tasks).order(:id)
   end
 
   def new
@@ -21,7 +23,12 @@ class BoardsController < ApplicationController
 
   private
 
+  def load_board_dependencies
+    @workspaces = Workspace.order(:name)
+    @projects = Project.includes(:workspace).order(:name)
+  end
+
   def board_params
-    params.require(:board).permit(:name)
+    params.require(:board).permit(:name, :workspace_id, :project_id)
   end
 end

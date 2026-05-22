@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   get "boards/index"
   devise_for :users
   resources :users, only: [:new, :update, :destroy, :edit, :index, :show, :create]
+  resources :projects, only: [:new, :create]
+  resources :tasks, only: [:new, :create]
   resources :boards do
     resources :cards, only: [:create]
   end
