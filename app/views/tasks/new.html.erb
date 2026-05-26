@@ -1,97 +1,54 @@
 <div class="max-w-2xl mx-auto mt-26 px-4">
   <h1 class="text-2xl font-bold mb-6">Create Task</h1>
-
   <div class="mb-6 rounded-lg border border-gray-200 bg-white p-4">
     <%= form_with url: new_task_path, method: :get, scope: :task do |f| %>
       <div>
         <%= f.label :board_id, "Board", class: "block text-sm font-medium mb-2" %>
-        <%= f.collection_select :board_id,
-          @boards,
-          :id,
-          :name,
-          { prompt: "Select board", selected: @selected_board&.id },
-          class: "w-full rounded-lg border-gray-300",
-          onchange: "this.form.requestSubmit()" %>
+        <%= f.collection_select :board_id, @boards, :id, :name, { prompt: "Select board", selected: @selected_board&.id }, class: "w-full rounded-lg border-gray-300", onchange: "this.form.requestSubmit()" %>
       </div>
     <% end %>
   </div>
-
   <%= form_with model: @task do |f| %>
     <% if @task.errors.any? %>
       <div class="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
         <%= @task.errors.full_messages.to_sentence %>
       </div>
     <% end %>
-
     <% if @selected_board.blank? %>
       <div class="mb-4 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
         Select a board first. The status list will be loaded from that board.
       </div>
     <% end %>
-
     <%= f.hidden_field :board_id, value: @selected_board&.id %>
-
     <div class="grid gap-4 md:grid-cols-2">
       <div class="md:col-span-2">
         <%= f.label :title, class: "block text-sm font-medium mb-2" %>
         <%= f.text_field :title, class: "w-full rounded-lg border-gray-300" %>
       </div>
-
       <div class="md:col-span-2">
         <%= f.label :description, class: "block text-sm font-medium mb-2" %>
         <%= f.text_area :description, rows: 4, class: "w-full rounded-lg border-gray-300" %>
       </div>
-
       <div>
         <%= f.label :status_id, "Status", class: "block text-sm font-medium mb-2" %>
-        <%= f.collection_select :status_id,
-          @available_statuses,
-          :id,
-          :name,
-          { prompt: "Select status" },
-          class: "w-full rounded-lg border-gray-300" %>
+        <%= f.collection_select :status_id, @available_statuses, :id, :name, { prompt: "Select status" }, class: "w-full rounded-lg border-gray-300" %>
       </div>
-
       <div>
         <%= f.label :task_type_id, "Task Type", class: "block text-sm font-medium mb-2" %>
-        <%= f.collection_select :task_type_id,
-          @task_types,
-          :id,
-          :name,
-          { prompt: "Select task type" },
-          class: "w-full rounded-lg border-gray-300" %>
+        <%= f.collection_select :task_type_id, @task_types, :id, :name, { prompt: "Select task type" }, class: "w-full rounded-lg border-gray-300" %>
       </div>
-
       <div>
         <%= f.label :label_id, "Label", class: "block text-sm font-medium mb-2" %>
-        <%= f.collection_select :label_id,
-          @labels,
-          :id,
-          :name,
-          { prompt: "Select label" },
-          class: "w-full rounded-lg border-gray-300" %>
+        <%= f.collection_select :label_id, @labels, :id, :name, { prompt: "Select label" }, class: "w-full rounded-lg border-gray-300" %>
       </div>
-
       <div>
         <%= f.label :story_point_id, "Story Point", class: "block text-sm font-medium mb-2" %>
-        <%= f.collection_select :story_point_id,
-          @story_points,
-          :id,
-          :label,
-          { prompt: "Select story point" },
-          class: "w-full rounded-lg border-gray-300" %>
+        <%= f.collection_select :story_point_id, @story_points, :id, :label, { prompt: "Select story point" }, class: "w-full rounded-lg border-gray-300" %>
       </div>
-
       <div>
         <%= f.label :assignee, "Assignee", class: "block text-sm font-medium mb-2" %>
-        <%= f.collection_select :assignee,
-          @users,
-          :id,
-          :email,
-          { prompt: "Select assignee" },
-          class: "w-full rounded-lg border-gray-300" %>
+        <%= f.collection_select :assignee, @users, :id, :email, { prompt: "Select assignee" }, class: "w-full rounded-lg border-gray-300" %>
       </div>
-
       <div>
         <% if @selected_board.present? %>
           <label class="block text-sm font-medium mb-2">Project</label>
@@ -100,22 +57,17 @@
           </div>
         <% end %>
       </div>
-
       <div>
         <%= f.label :start_date, class: "block text-sm font-medium mb-2" %>
         <%= f.date_field :start_date, class: "w-full rounded-lg border-gray-300" %>
       </div>
-
       <div>
         <%= f.label :end_date, class: "block text-sm font-medium mb-2" %>
         <%= f.date_field :end_date, class: "w-full rounded-lg border-gray-300" %>
       </div>
     </div>
-
     <div class="mt-6">
-      <%= f.submit "Create Task",
-        class: "bg-black text-white px-4 py-2 rounded-lg",
-        disabled: @selected_board.blank? %>
+      <%= f.submit "Create Task", class: "bg-black text-white px-4 py-2 rounded-lg", disabled: @selected_board.blank? %>
     </div>
   <% end %>
 </div>

@@ -1,64 +1,30 @@
 <div class="max-w-md mx-auto mt-26">
-
   <h1 class="text-2xl font-bold mb-6">
     Create Board
   </h1>
-
   <%= form_with model: @board do |f| %>
     <% if @board.errors.any? %>
       <div class="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
         <%= @board.errors.full_messages.to_sentence %>
       </div>
     <% end %>
-
     <% if @workspaces.empty? || @projects.empty? %>
       <div class="mb-4 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
         Create at least one workspace and one project before creating a board.
       </div>
     <% end %>
-
     <div class="mb-4">
-
-      <%= f.label :name,
-        class: "block text-sm font-medium mb-2" %>
-
-      <%= f.text_field :name,
-        class: "w-full rounded-lg border-gray-300" %>
-
+      <%= f.label :name, class: "block text-sm font-medium mb-2" %>
+      <%= f.text_field :name, class: "w-full rounded-lg border-gray-300" %>
     </div>
-
     <div class="mb-4">
-
-      <%= f.label :workspace_id, "Workspace",
-        class: "block text-sm font-medium mb-2" %>
-
-      <%= f.collection_select :workspace_id,
-        @workspaces,
-        :id,
-        :name,
-        { prompt: "Select workspace" },
-        class: "w-full rounded-lg border-gray-300" %>
-
+      <%= f.label :workspace_id, "Workspace", class: "block text-sm font-medium mb-2" %>
+      <%= f.collection_select :workspace_id, @workspaces, :id, :name, { prompt: "Select workspace" }, class: "w-full rounded-lg border-gray-300" %>
     </div>
-
     <div class="mb-4">
-
-      <%= f.label :project_id, "Project",
-        class: "block text-sm font-medium mb-2" %>
-
-      <%= f.collection_select :project_id,
-        @projects,
-        :id,
-        :name,
-        { prompt: "Select project" },
-        class: "w-full rounded-lg border-gray-300" %>
-
+      <%= f.label :project_id, "Project", class: "block text-sm font-medium mb-2" %>
+      <%= f.collection_select :project_id, @projects, :id, :name, { prompt: "Select project" }, class: "w-full rounded-lg border-gray-300" %>
     </div>
-
-    <%= f.submit "Create Board",
-      class: "bg-black text-white px-4 py-2 rounded-lg",
-      disabled: @workspaces.empty? || @projects.empty? %>
-
+    <%= f.submit "Create Board", class: "bg-black text-white px-4 py-2 rounded-lg", disabled: @workspaces.empty? || @projects.empty? %>
   <% end %>
-
 </div>
