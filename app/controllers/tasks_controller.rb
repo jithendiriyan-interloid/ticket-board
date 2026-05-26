@@ -14,7 +14,6 @@ class TasksController < ApplicationController
     @task = Task.new(task_params.except(:board_id))
     @task.project = @selected_board.project if @selected_board.present?
     assign_default_task_values
-
     if @task.save
       redirect_to boards_path, notice: "Task created"
     else
@@ -39,11 +38,17 @@ class TasksController < ApplicationController
     @boards.find { |board| board.id == board_id.to_i }
   end
 
-  def statuses_for(board)
-    return [] if board.blank?
+def statuses_for(board)
+  return Status.order(:name) if board.blank?
 
-    board.board_sections.includes(:status).map(&:status).uniq.presence || Status.order(:name)
-  end
+  statuses = board.board_sections
+                  .includes(:status)
+                  .map(&:status)
+                  .compact
+                  .uniq
+
+  statuses.any? ? statuses : Status.order(:name)
+end
 
   def assign_default_task_values
     @task.status_id ||= @available_statuses.first&.id
@@ -61,7 +66,6 @@ class TasksController < ApplicationController
       :label_id,
       :task_type_id,
       :story_point_id,
-      :assignee,
       :start_date,
       :end_date
     )

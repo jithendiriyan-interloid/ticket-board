@@ -4,8 +4,9 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :update, :destroy, :edit, :index, :show, :create]
   resources :projects, only: [:new, :create]
   resources :tasks, only: [:new, :create]
+  resources :workspaces
   resources :boards do
-    resources :cards, only: [:create]
+  resources :cards, only: [:create]
   end
   resources :statuses, controller: "status", only: [:new, :create]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
