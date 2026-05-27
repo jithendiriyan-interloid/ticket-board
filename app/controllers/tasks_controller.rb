@@ -66,6 +66,7 @@ end
       :label_id,
       :task_type_id,
       :story_point_id,
+      :assignee_id,
       :start_date,
       :end_date
     )
