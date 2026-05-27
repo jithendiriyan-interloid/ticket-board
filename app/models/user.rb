@@ -13,7 +13,5 @@ class User < ApplicationRecord
  def active_for_authentication?
   super && deleted_at.nil?
  end
- def remove_avatar=(value)
-  avatar.purge if value == "1"
- end
+
 end

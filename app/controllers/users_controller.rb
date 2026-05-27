@@ -1,28 +1,30 @@
 class UsersController < ApplicationController
+   before_action :set_user
   def edit
-    @user = current_user
   end
 
   def show
-    @user = current_user
   end
 
   def destroy
-    if current_user.soft_delete!
-      sign_out(current_user)
-      redirect_to root_path, notice: "Account was deleted successfully"
+    if @user.soft_delete!
+      redirect_to root_path,  notice: t("users.deleted")
     else
-      redirect_to edit_user_path(current_user), alert: "Unable to delete"
+      redirect_to edit_user_path(current_user), alert: t("users.delete_failed")
     end
   end
 
   def update
-    @user = current_user
+    @user.avatar.purge if params[:remove_avatar]
     if @user.update(profile_params)
-      redirect_to root_path, notice: "Profile updated successfully"
+      redirect_to root_path, notice: t("users.updated")
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def set_user
+    @user = current_user
   end
 
   private
@@ -37,7 +39,7 @@ class UsersController < ApplicationController
       :street,
       :avatar,
       :remove_avatar,
-      :pin
+      :pincode
     )
   end
 end

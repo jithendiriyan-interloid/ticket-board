@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_20_143517) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_27_140634) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -77,6 +77,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_143517) do
     t.index ["workspace_id"], name: "index_boards_on_workspace_id"
   end
 
+  create_table "cards", force: :cascade do |t|
+    t.bigint "board_id", null: false
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.bigint "status_id", null: false
+    t.string "title"
+    t.datetime "updated_at", null: false
+    t.index ["board_id"], name: "index_cards_on_board_id"
+    t.index ["status_id"], name: "index_cards_on_status_id"
+  end
+
   create_table "comments", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.text "description"
@@ -95,6 +106,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_143517) do
 
   create_table "memberships", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.integer "role", default: 0, null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.bigint "workspace_id", null: false
@@ -194,7 +206,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_143517) do
     t.string "last_sign_in_ip"
     t.datetime "locked_at"
     t.string "phone"
-    t.integer "pin"
+    t.integer "pincode"
     t.datetime "remember_created_at"
     t.datetime "reset_password_sent_at"
     t.string "reset_password_token"
@@ -213,8 +225,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_143517) do
 
   create_table "workspaces", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.text "description"
     t.string "name"
+    t.bigint "owner_id"
     t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_workspaces_on_owner_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -227,6 +242,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_143517) do
   add_foreign_key "board_sections", "statuses"
   add_foreign_key "boards", "projects"
   add_foreign_key "boards", "workspaces"
+  add_foreign_key "cards", "boards"
+  add_foreign_key "cards", "statuses"
   add_foreign_key "comments", "tasks"
   add_foreign_key "comments", "users"
   add_foreign_key "memberships", "users"
@@ -241,4 +258,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_143517) do
   add_foreign_key "tasks", "statuses"
   add_foreign_key "tasks", "story_points"
   add_foreign_key "tasks", "task_types"
+  add_foreign_key "workspaces", "users", column: "owner_id"
 end
