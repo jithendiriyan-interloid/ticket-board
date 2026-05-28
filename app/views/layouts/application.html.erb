@@ -42,16 +42,12 @@
               <!--DropDown-->
               <div data-controller="dropdown" class="relative flex ">
                 <button data-dropdown-target="button" data-action="click->dropdown#toggle" class="rounded-md focus:outline-none">
-                  <% if current_user.avatar.attached? && current_user.avatar.blob&.persisted? %>
-                    <%= image_tag url_for(current_user.avatar), class: "w-8 h-8 rounded-full object-cover" %>
-                  <% else %>
-                    <%= image_tag "default_avatar.jpg", class: "w-8 h-8 rounded-full object-cover" %>
-                  <% end %>
+                  <%= user_avatar(current_user, "w-8 h-8 rounded-full object-cover") %>
                 </button>
                 <div data-dropdown-target="menu" class="hidden absolute top-16 right-0 w-[270px] bg-white rounded-md shadow-lg z-10">
                   <p class="block px-4 py-2 hover:bg-gray-100 hover:rounded-md"> <%= current_user&.first_name.presence || current_user&.email %> </p>
                   <%= link_to "Profile", user_path(current_user), class:"block px-4 py-2 hover:bg-gray-100 hover:rounded-md"%>
-                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 hover:rounded-md">Settings</a>
+                  <%= link_to "Settings", edit_user_path(current_user), class:"block px-4 py-2 hover:bg-gray-100 hover:rounded-md"%>
                   <hr class="border-t border-gray-200">
                   <%= link_to "Sign out",destroy_user_session_path,data: { turbo_method: :delete },class: "block px-4 py-2 text-red-500 hover:bg-red-100 hover:rounded-md"%>
                 </div>

@@ -13,14 +13,15 @@ class UsersController < ApplicationController
       redirect_to edit_user_path(current_user), alert: t("users.delete_failed")
     end
   end
-
   def update
-    @user.avatar.purge if params[:remove_avatar]
-    if @user.update(profile_params)
-      redirect_to root_path, notice: t("users.updated")
+    if params[:remove_avatar]
+      @user.avatar.purge
+    elsif params.dig(:user, :avatar).present?
+      @user.update(avatar: params[:user][:avatar])
     else
-      render :edit, status: :unprocessable_entity
+      @user.update(profile_params)
     end
+    render :edit
   end
 
   def set_user
