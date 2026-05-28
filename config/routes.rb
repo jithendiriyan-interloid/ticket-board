@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users, only: [:new, :update, :destroy, :edit, :index, :show, :create]
   resources :projects, only: [:new, :create]
-  resources :tasks, only: [:new, :create]
+  resources :tasks
   resources :workspaces
   resources :boards do
   resources :cards, only: [:create]
