@@ -1,6 +1,5 @@
 <% if @workspaces.present? %>
-  <div class="max-w-4xl mx-auto mt-8">
-    
+  <div class="w-[50%] mx-auto mt-20">
     <div class="mb-4 flex items-center justify-between">
       <div>
         <h2 class="text-xl font-semibold">Workspace List</h2>
@@ -8,89 +7,39 @@
           <%= @workspaces.count %> total workspaces
         </p>
       </div>
-
-      <%= link_to "Create Workspace",
-          new_workspace_path,
-          class: "px-4 py-2 bg-black text-white rounded-lg text-sm" %>
+      <%= link_to "Create Workspace", new_workspace_path, data: { turbo_frame: "modal" }, class: "px-4 py-2 bg-blue-600 text-white rounded-lg text-sm" %>
     </div>
-
     <div class="overflow-x-auto bg-white border border-slate-200 rounded-xl shadow-sm">
-      
       <table class="min-w-full">
-
         <thead class="bg-slate-50 border-b border-slate-200">
           <tr>
-            <th class="px-6 py-4 text-left text-sm font-semibold">
-              Name
-            </th>
-
-            <th class="px-6 py-4 text-left text-sm font-semibold">
-              Description
-            </th>
-
-            <th class="px-6 py-4 text-center text-sm font-semibold">
-              Owner
-            </th>
-
-            <th class="px-6 py-4 text-center text-sm font-semibold">
-              Actions
-            </th>
+            <th class="px-6 py-4 text-left text-sm font-semibold"> Name </th>
+            <th class="px-6 py-4 text-left text-sm font-semibold"> Description </th>
+            <th class="px-6 py-4 text-center text-sm font-semibold"> Owner </th>
+            <th class="px-6 py-4 text-center text-sm font-semibold"> Actions </th>
           </tr>
         </thead>
-
         <tbody class="divide-y divide-slate-100">
-
           <% @workspaces.each do |workspace| %>
-
             <tr class="hover:bg-slate-50 transition">
-
               <td class="px-6 py-4 text-sm font-medium">
                 <%= workspace.name %>
               </td>
-
               <td class="px-6 py-4 text-sm text-slate-600">
                 <%= workspace.description.presence || "No description" %>
               </td>
-
               <td class="px-6 py-4 text-center text-sm">
                 <%= workspace.owner&.first_name || "Unknown" %>
               </td>
-
               <td class="px-6 py-4">
                 <div class="flex justify-center gap-2">
-
-                  <%= link_to "View",
-                      workspace_path(workspace),
-                      class: "px-3 py-2 text-sm bg-slate-200 rounded-md" %>
-
-                  <% if policy(workspace).edit? %>
-
-                    <%= link_to "Edit",
-                        edit_workspace_path(workspace),
-                        class: "px-3 py-2 text-sm bg-blue-600 text-white rounded-md" %>
-
-                    <%= button_to "Delete",
-                        workspace_path(workspace),
-                        method: :delete,
-                        data: {
-                          turbo_confirm: "Are you sure?"
-                        },
-                        class: "px-3 py-2 text-sm bg-red-600 text-white rounded-md" %>
-
-                  <% end %>
-
+                  <%= link_to "View", workspace_path(workspace), class: "px-3 py-2 text-sm bg-slate-200 rounded-md" %>
                 </div>
               </td>
-
             </tr>
-
           <% end %>
-
         </tbody>
-
       </table>
-
     </div>
-
   </div>
 <% end %>

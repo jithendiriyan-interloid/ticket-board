@@ -47,6 +47,13 @@
               Add status
             <% end %>
           </div>
+          <div class="mb-4 flex items-center justify-between">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-900"><%= board.project.name %></h3>
+              <p class="text-sm text-gray-500">Board: <%= board.name %></p>
+            </div>
+            <%= link_to "Edit", edit_board_path(board), data: { turbo_frame: "modal" }, class: "text-sm text-blue-600 hover:underline" %>
+          </div>
         </section>
       <% end %>
     </div>

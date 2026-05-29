@@ -40,7 +40,6 @@ class UsersController < ApplicationController
   end
 
   private
-
   def profile_params
     params.require(:user).permit(
       :first_name,

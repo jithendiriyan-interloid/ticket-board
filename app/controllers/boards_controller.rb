@@ -1,5 +1,6 @@
 class BoardsController < ApplicationController
-  before_action :load_board_dependencies, only: [:new, :create]
+  before_action :load_board_dependencies, only: [:new, :create, :edit, :update]
+  before_action :set_board, only: [:edit, :update]
 
   def index
     @user = current_user
@@ -13,7 +14,6 @@ class BoardsController < ApplicationController
 
   def create
     @board = Board.new(board_params)
-
     if @board.save
       redirect_to boards_path, notice: "Board created"
     else
@@ -21,7 +21,21 @@ class BoardsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    if @board.update(board_params)
+      redirect_to boards_path, notice: "Board updated successfully."
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
+  def set_board
+    @board = Board.find(params[:id])
+  end
 
   def load_board_dependencies
     @workspaces = Workspace.order(:name)

@@ -35,7 +35,6 @@ class TasksController < ApplicationController
   end
 
   private
-
   def load_task_dependencies
     @boards = Board.includes(:project).order(:name)
     @labels = Label.order(:name)
@@ -47,21 +46,20 @@ class TasksController < ApplicationController
   def find_selected_board
     board_id = params[:board_id] || params.dig(:task, :board_id)
     return if board_id.blank?
-
     @boards.find { |board| board.id == board_id.to_i }
   end
 
-def statuses_for(board)
-  return Status.order(:name) if board.blank?
+  def statuses_for(board)
+    return Status.order(:name) if board.blank?
 
-  statuses = board.board_sections
-                  .includes(:status)
-                  .map(&:status)
-                  .compact
-                  .uniq
+    statuses = board.board_sections
+                    .includes(:status)
+                    .map(&:status)
+                    .compact
+                    .uniq
 
-  statuses.any? ? statuses : Status.order(:name)
-end
+    statuses.any? ? statuses : Status.order(:name)
+  end
 
   def assign_default_task_values
     @task.status_id ||= @available_statuses.first&.id
