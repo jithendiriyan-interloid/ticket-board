@@ -46,7 +46,7 @@ class WorkspacesController < ApplicationController
 
   private
   def set_workspace
-    @workspace = Workspace.find(params[:id])
+    @workspace = policy_scope(Workspace).active.find(params[:id])
   end
 
   def workspace_params

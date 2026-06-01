@@ -5,30 +5,38 @@ class TasksController < ApplicationController
     @task = Task.new
     @selected_board = find_selected_board
     @available_statuses = statuses_for(@selected_board)
+    @users = users_for(@selected_board)
     assign_default_task_values
   end
 
   def create
     @selected_board = find_selected_board
     @available_statuses = statuses_for(@selected_board)
+    @users = users_for(@selected_board)
     @task = Task.new(task_params.except(:board_id))
     @task.project = @selected_board.project if @selected_board.present?
     assign_default_task_values
-    if @task.save
-      redirect_to boards_path, notice: "Task created"
+    if invalid_task_assignee?
+      render :new, status: :unprocessable_entity
+    elsif @task.save
+      redirect_to boards_path(project_id: @task.project_id), notice: "Task created"
     else
       render :new, status: :unprocessable_entity
     end
   end
 
   def edit
-    @task = Task.find(params[:id])
+    @task = accessible_tasks.find(params[:id])
   end
 
   def update
-    @task = Task.find(params[:id])
-    if @task.update(task_params)
-      redirect_to tasks_path, notice: "Task updated successfully"
+    @task = accessible_tasks.find(params[:id])
+    @task.assign_attributes(task_params.except(:board_id))
+    @users = users_for_workspace(@task.project.workspace)
+    if invalid_task_assignee?
+      render :edit, status: :unprocessable_entity
+    elsif @task.save
+      redirect_to boards_path(project_id: @task.project_id), notice: "Task updated successfully"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -36,11 +44,11 @@ class TasksController < ApplicationController
 
   private
   def load_task_dependencies
-    @boards = Board.includes(:project).order(:name)
+    @boards = policy_scope(Board).includes(:project).order(:name)
     @labels = Label.order(:name)
     @task_types = TaskType.order(:name)
     @story_points = StoryPoint.order(:value)
-    @users = User.order(:first_name, :email)
+    @users = []
   end
 
   def find_selected_board
@@ -59,6 +67,31 @@ class TasksController < ApplicationController
                     .uniq
 
     statuses.any? ? statuses : Status.order(:name)
+  end
+
+  def users_for(board)
+    return User.none if board.blank?
+
+    users_for_workspace(board.workspace)
+  end
+
+  def users_for_workspace(workspace)
+    User.where(id: workspace.owner_id)
+        .or(User.where(id: Membership.where(workspace_id: workspace.id).select(:user_id)))
+        .distinct
+        .order(:first_name, :email)
+  end
+
+  def accessible_tasks
+    Task.joins(:project).merge(policy_scope(Project))
+  end
+
+  def invalid_task_assignee?
+    return false if @task.assignee_id.blank?
+    return false if @users.exists?(id: @task.assignee_id)
+
+    @task.errors.add(:assignee_id, "must belong to the board workspace")
+    true
   end
 
   def assign_default_task_values

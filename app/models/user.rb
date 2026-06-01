@@ -21,8 +21,8 @@ class User < ApplicationRecord
     owner: 1,
     admin: 2
   }
-  has_many :membership
-  has_many :workspace, through: :membership
+  has_many :memberships
+  has_many :workspaces, through: :memberships
 
   has_many :assigned_tasks,
   class_name: 'Task',

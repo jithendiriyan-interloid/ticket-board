@@ -3,11 +3,14 @@ class ProjectsController < ApplicationController
   before_action :load_workspaces, only: [:new, :create, :edit, :update]
 
   def index
-    @projects = Project.includes(:workspace).order(:name)
+    @workspace = policy_scope(Workspace).active.find(params[:workspace_id]) if params[:workspace_id].present?
+    @projects = policy_scope(Project).includes(:workspace).order(:name)
+    @projects = @projects.where(workspace_id: @workspace.id) if @workspace.present?
   end
 
   def new
-    @project = Project.new
+    @workspace = policy_scope(Workspace).active.find(params[:workspace_id]) if params[:workspace_id].present?
+    @project = Project.new(workspace: @workspace)
   end
 
   def create
@@ -25,8 +28,9 @@ class ProjectsController < ApplicationController
   end
 
   def update
+    @project.assign_attributes(project_params)
     authorize @project
-    if @project.update(project_params)
+    if @project.save
       redirect_to projects_path, notice: "Project updated."
     else
       render :edit, status: :unprocessable_entity
@@ -41,11 +45,11 @@ class ProjectsController < ApplicationController
 
   private
   def set_project
-    @project = Project.find(params[:id])
+    @project = policy_scope(Project).find(params[:id])
   end
 
   def load_workspaces
-    @workspaces = Workspace.order(:name)
+    @workspaces = policy_scope(Workspace).active.order(:name)
   end
 
   def project_params

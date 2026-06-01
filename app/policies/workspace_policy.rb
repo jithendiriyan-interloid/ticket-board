@@ -8,35 +8,41 @@ class WorkspacePolicy < ApplicationPolicy
   class Scope < ApplicationPolicy::Scope
     # NOTE: Be explicit about which records you allow access to!
     def resolve
-      if user.owner?
-        scope.all
-      else
-        scope.none
-      end 
+      scope.accessible_to(user)
     end
   end
-    def index
-      user.owner?
+    def index?
+      true
     end
     def show?
-      user.owner?
+      assigned?
     end
     def edit?
-      user.owner?
+      owns_workspace?
     end
     def update?
       edit?
     end
 
     def destroy?
-      user.owner?
+      owns_workspace?
     end
 
     def create?
-      user.owner?
+      user.owner? || user.admin?
     end
  
     def new?
       create?
+    end
+
+    private
+
+    def assigned?
+      owns_workspace? || record.memberships.exists?(user_id: user.id)
+    end
+
+    def owns_workspace?
+      record.owner_id == user.id
     end
 end

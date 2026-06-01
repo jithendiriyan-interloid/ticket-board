@@ -5,28 +5,38 @@ class BoardsController < ApplicationController
   def index
     @user = current_user
     @statuses = Status.order(:id)
-    @boards = Board.includes(project: :tasks).order(:id)
+    @project = policy_scope(Project).find(params[:project_id]) if params[:project_id].present?
+    @boards = policy_scope(Board)
+                .includes(project: [:workspace, { tasks: [:label, :task_type] }])
+                .order(:id)
+    @boards = @boards.where(project_id: @project.id) if @project.present?
+    @boards_by_project = @boards.group_by(&:project)
   end
 
   def new
-    @board = Board.new
+    @project = policy_scope(Project).find(params[:project_id]) if params[:project_id].present?
+    @board = Board.new(project: @project, workspace: @project&.workspace)
   end
 
   def create
     @board = Board.new(board_params)
+    authorize @board
     if @board.save
-      redirect_to boards_path, notice: "Board created"
+      redirect_to boards_path(project_id: @board.project_id), notice: "Board created"
     else
       render :new, status: :unprocessable_entity
     end
   end
 
   def edit
+    authorize @board
   end
 
   def update
-    if @board.update(board_params)
-      redirect_to boards_path, notice: "Board updated successfully."
+    @board.assign_attributes(board_params)
+    authorize @board
+    if @board.save
+      redirect_to boards_path(project_id: @board.project_id), notice: "Board updated successfully."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -34,12 +44,12 @@ class BoardsController < ApplicationController
 
   private
   def set_board
-    @board = Board.find(params[:id])
+    @board = policy_scope(Board).find(params[:id])
   end
 
   def load_board_dependencies
-    @workspaces = Workspace.order(:name)
-    @projects = Project.includes(:workspace).order(:name)
+    @workspaces = policy_scope(Workspace).active.order(:name)
+    @projects = policy_scope(Project).includes(:workspace).order(:name)
   end
 
   def board_params
