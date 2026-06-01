@@ -1,0 +1,4 @@
+<%= form_with model: [board, Card.new] do |f| %>
+  <%= f.hidden_field :status_id, value: status.id %>
+  <%= link_to "Create Task",new_task_path(board_id: board.id), data: { turbo_frame: "modal" }, class:"block px-4 py-2 hover:bg-blue-700 hover:rounded-md bg-blue-600 text-white text-center rounded-md"%>
+<% end %>

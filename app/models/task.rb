@@ -9,6 +9,8 @@ class Task < ApplicationRecord
               class_name: 'User',
               foreign_key: "assignee_id",
               optional: true
+  acts_as_list scope: [ :project_id, :status_id ]
+
   has_many :comments
   has_many :activities
   has_many :subtask

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_29_071612) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_01_000100) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -81,9 +81,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_29_071612) do
     t.bigint "board_id", null: false
     t.datetime "created_at", null: false
     t.text "description"
+    t.integer "position"
     t.bigint "status_id", null: false
     t.string "title"
     t.datetime "updated_at", null: false
+    t.index ["board_id", "status_id", "position"], name: "index_cards_on_board_id_and_status_id_and_position"
     t.index ["board_id"], name: "index_cards_on_board_id"
     t.index ["status_id"], name: "index_cards_on_status_id"
   end
@@ -175,6 +177,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_29_071612) do
     t.text "description"
     t.date "end_date"
     t.bigint "label_id", null: false
+    t.integer "position", null: false
     t.bigint "project_id", null: false
     t.date "start_date"
     t.bigint "status_id", null: false
@@ -183,6 +186,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_29_071612) do
     t.string "title"
     t.datetime "updated_at", null: false
     t.index ["label_id"], name: "index_tasks_on_label_id"
+    t.index ["project_id", "status_id", "position"], name: "index_tasks_on_project_id_and_status_id_and_position"
     t.index ["project_id"], name: "index_tasks_on_project_id"
     t.index ["status_id"], name: "index_tasks_on_status_id"
     t.index ["story_point_id"], name: "index_tasks_on_story_point_id"

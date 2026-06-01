@@ -1,0 +1,141 @@
+<turbo-frame id="modal">
+  <div data-controller="drawer" data-action="click->drawer#backdropClose" class="fixed inset-0 z-[100] bg-black/40"> 
+    <div data-drawer-target="panel" class="absolute right-0 top-0 h-full w-[40%] overflow-y-auto bg-white shadow-2xl transform transition-transform duration-300 ease-out">
+      <div class="py-8">
+        <div class="mx-auto  mt-16 sm:px-6 lg:px-8">
+          <!-- Header -->
+          <div class="mb-6 flex items-center justify-between">
+            <div>
+              <h1 class="text-3xl font-bold tracking-tight text-gray-900">
+                Task Details
+              </h1>
+              <p class="mt-1 text-sm text-gray-500">
+                <%= @task.title %>
+              </p>
+            </div>
+            <div class="flex gap-3">
+              <%= link_to "Edit", edit_task_path(@task), class: "rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700" %>
+            </div>
+          </div>
+          <!-- Main Card -->
+          <div >
+            <!-- Task Information -->
+            <div class="border-b border-gray-100 ">
+              <h2 class="mb-4 text-lg font-semibold text-gray-900">
+                Task Information
+              </h2>
+              <div class="grid gap-6 md:grid-cols-2">
+                <div>
+                  <p class="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                    Title
+                  </p>
+                  <p class="mt-1 text-gray-900">
+                    <%= @task.title %>
+                  </p>
+                </div>
+                <div>
+                  <p class="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                    Board
+                  </p>
+                  <p class="mt-1 text-gray-900">
+                    <%= @task.project&.name %>
+                  </p>
+                </div>
+                <div class="md:col-span-2">
+                  <p class="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                    Description
+                  </p>
+                  <div class="mt-2 rounded-lg bg-slate-50 p-4">
+                    <%= @task.description.present? ? @task.description : "No description provided." %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Details -->
+            <div class="p-6">
+              <h2 class="mb-4 text-lg font-semibold text-gray-900">
+                Details
+              </h2>
+              <div class="grid gap-6 md:grid-cols-3">
+                <div>
+                  <p class="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                    Status
+                  </p>
+                  <div class="mt-2">
+                    <span class="rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-700">
+                      <%= @task.status&.name %>
+                    </span>
+                  </div>
+                </div>
+                <div>
+                  <p class="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                    Task Type
+                  </p>
+                  <p class="mt-2 text-gray-900">
+                    <%= @task.task_type&.name || "-" %>
+                  </p>
+                </div>
+                <div>
+                  <p class="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                    Label
+                  </p>
+                  <p class="mt-2 text-gray-900">
+                    <%= @task.label&.name || "-" %>
+                  </p>
+                </div>
+                <div>
+                  <p class="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                    Story Points
+                  </p>
+                  <p class="mt-2 text-gray-900">
+                    <%= @task.story_point&.label || "-" %>
+                  </p>
+                </div>
+                <div>
+                  <p class="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                    Assignee
+                  </p>
+                  <p class="mt-2 text-gray-900">
+                    <%= @task.assignee&.email || "Unassigned" %>
+                  </p>
+                </div>
+                <div>
+                  <p class="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                    Project
+                  </p>
+                  <p class="mt-2 text-gray-900">
+                    <%= @task.project&.name || "-" %>
+                  </p>
+                </div>
+                <div>
+                  <p class="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                    Start Date
+                  </p>
+                  <p class="mt-2 text-gray-900">
+                    <%= @task.start_date&.strftime("%d %b %Y") || "-" %>
+                  </p>
+                </div>
+                <div>
+                  <p class="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                    End Date
+                  </p>
+                  <p class="mt-2 text-gray-900">
+                    <%= @task.end_date&.strftime("%d %b %Y") || "-" %>
+                  </p>
+                </div>
+                <div>
+                  <p class="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                    Created
+                  </p>
+                  <p class="mt-2 text-gray-900">
+                    <%= @task.created_at.strftime("%d %b %Y, %I:%M %p") %>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</turbo-frame>

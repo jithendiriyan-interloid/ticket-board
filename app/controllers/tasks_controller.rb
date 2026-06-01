@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :load_task_dependencies, only: [:new, :create]
+  before_action :load_task_dependencies, only: [ :new, :create, :edit, :update ]
 
   def new
     @task = Task.new
@@ -27,12 +27,13 @@ class TasksController < ApplicationController
 
   def edit
     @task = accessible_tasks.find(params[:id])
+    load_existing_task_options
   end
 
   def update
     @task = accessible_tasks.find(params[:id])
     @task.assign_attributes(task_params.except(:board_id))
-    @users = users_for_workspace(@task.project.workspace)
+    load_existing_task_options
     if invalid_task_assignee?
       render :edit, status: :unprocessable_entity
     elsif @task.save
@@ -40,6 +41,17 @@ class TasksController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+  def show
+    @task = Task.find(params[:id])
+  end
+
+  def move
+    @task = accessible_tasks.find(params[:id])
+    @task.update!(status_id: params.require(:status_id))
+    @task.insert_at(params.require(:position).to_i)
+
+    head :ok
   end
 
   private
@@ -80,6 +92,22 @@ class TasksController < ApplicationController
         .or(User.where(id: Membership.where(workspace_id: workspace.id).select(:user_id)))
         .distinct
         .order(:first_name, :email)
+  end
+
+  def statuses_for_project(project)
+    statuses = policy_scope(Board)
+               .where(project: project)
+               .includes(board_sections: :status)
+               .flat_map { |board| board.board_sections.map(&:status) }
+               .compact
+               .uniq
+
+    statuses.any? ? statuses : Status.order(:name)
+  end
+
+  def load_existing_task_options
+    @available_statuses = ([ @task.status ] + statuses_for_project(@task.project)).compact.uniq
+    @users = users_for_workspace(@task.project.workspace)
   end
 
   def accessible_tasks

@@ -1,20 +1,20 @@
 class CardsController < ApplicationController
   before_action :set_board
+  before_action :set_card, only: [ :move ]
 
-  def create
-    @card = @board.cards.new(card_params)
-    if @card.save
-      redirect_to boards_path(project_id: @board.project_id),
-        notice: "Card created successfully"
-    else
-      redirect_to boards_path(project_id: @board.project_id),
-        alert: @card.errors.full_messages.to_sentence
-    end
+  def move
+    @card.update!(status_id: params.require(:status_id))
+    @card.insert_at(params.require(:position).to_i)
+    head :ok
   end
 
   private
   def set_board
     @board = policy_scope(Board).find(params[:board_id])
+  end
+
+  def set_card
+    @card = @board.cards.find(params[:id])
   end
 
   def card_params

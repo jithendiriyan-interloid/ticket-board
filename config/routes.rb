@@ -3,10 +3,14 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users, only: [:new, :update, :destroy, :edit, :index, :show, :create]
   resources :projects
-  resources :tasks
+  resources :tasks do
+    patch :move, on: :member
+  end
   resources :workspaces
   resources :boards do
-  resources :cards, only: [:create]
+    resources :cards, only: [:create] do
+      patch :move, on: :member
+    end
   end
   resources :statuses, controller: "status", only: [:new, :create]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

@@ -1,16 +1,22 @@
 class BoardsController < ApplicationController
-  before_action :load_board_dependencies, only: [:new, :create, :edit, :update]
-  before_action :set_board, only: [:edit, :update]
+  before_action :load_board_dependencies, only: [ :new, :create, :edit, :update ]
+  before_action :set_board, only: [ :edit, :update ]
 
   def index
     @user = current_user
     @statuses = Status.order(:id)
     @project = policy_scope(Project).find(params[:project_id]) if params[:project_id].present?
     @boards = policy_scope(Board)
-                .includes(project: [:workspace, { tasks: [:label, :task_type] }])
+                .includes(:cards, project: :workspace)
                 .order(:id)
     @boards = @boards.where(project_id: @project.id) if @project.present?
     @boards_by_project = @boards.group_by(&:project)
+    project_ids = @boards_by_project.keys.map(&:id)
+    @tasks_by_project_status = Task
+                               .where(project_id: project_ids)
+                               .includes(:assignee, :label, :task_type, :story_point)
+                               .order(:status_id, :position, :id)
+                               .group_by { |task| [ task.project_id, task.status_id ] }
   end
 
   def new
