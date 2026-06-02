@@ -1,4 +1,10 @@
 <%= form_with model: [board, Card.new] do |f| %>
   <%= f.hidden_field :status_id, value: status.id %>
-  <%= link_to "Create Task",new_task_path(board_id: board.id), data: { turbo_frame: "modal" }, class:"block px-4 py-2 hover:bg-blue-700 hover:rounded-md bg-blue-600 text-white text-center rounded-md"%>
+  <div class="flex justify-center">
+    <%= link_to new_task_path(board_id: board.id), data: { turbo_frame: "modal" }, class: "inline-flex gap-2 px-5 py-2 bg-slate-700 text-white text-sm font-medium rounded-md hover:bg-slate-900 hover:shadow-md transition-all" do %>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path>
+      </svg>Create Task
+    <% end %>
+  </div>
 <% end %>
