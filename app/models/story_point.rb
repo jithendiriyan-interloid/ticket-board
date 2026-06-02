@@ -1,0 +1,2 @@
+class StoryPoint < ApplicationRecord
+end
