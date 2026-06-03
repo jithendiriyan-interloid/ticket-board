@@ -28,12 +28,14 @@ class TasksController < ApplicationController
   def edit
     @task = accessible_tasks.find(params[:id])
     load_existing_task_options
+    prepare_subtask_form
   end
 
   def update
     @task = accessible_tasks.find(params[:id])
     @task.assign_attributes(task_params.except(:board_id))
     load_existing_task_options
+    prepare_subtask_form
     if invalid_task_assignee?
       render :edit, status: :unprocessable_entity
     elsif @task.save
@@ -43,7 +45,16 @@ class TasksController < ApplicationController
     end
   end
   def show
-    @task = Task.find(params[:id])
+    @task = accessible_tasks
+            .includes(:status, :project, :task_type, :story_point, :label, :assignee, subtasks: [ :status, :story_point, :assignee ])
+            .find(params[:id])
+    @subtask = @task.subtasks.build(
+      status: @task.status,
+      story_point: @task.story_point
+    )
+    @available_statuses = statuses_for_project(@task.project)
+    @story_points = StoryPoint.order(:value)
+    @users = users_for_workspace(@task.project.workspace)
   end
 
   def move
@@ -110,6 +121,13 @@ class TasksController < ApplicationController
     @users = users_for_workspace(@task.project.workspace)
   end
 
+  def prepare_subtask_form
+    @subtask = @task.subtasks.build(
+      status: @task.status,
+      story_point: @task.story_point
+    )
+  end
+
   def accessible_tasks
     Task.joins(:project).merge(policy_scope(Project))
   end
@@ -140,7 +158,8 @@ class TasksController < ApplicationController
       :story_point_id,
       :assignee_id,
       :start_date,
-      :end_date
+      :end_date,
+      attachments: []
     )
   end
 end

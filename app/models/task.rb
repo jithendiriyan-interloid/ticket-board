@@ -13,7 +13,8 @@ class Task < ApplicationRecord
 
   has_many :comments
   has_many :activities
-  has_many :subtask
+  has_many :subtasks, dependent: :destroy
 
   validates :title, presence: true
+  has_many_attached :attachments
 end

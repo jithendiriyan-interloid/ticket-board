@@ -4,7 +4,9 @@ class Subtask < ApplicationRecord
   belongs_to :story_point
   belongs_to :assignee,
              class_name: 'User',
-             foreign_key: :assignee_id
+             foreign_key: :assignee_id,
+             optional: true
 
-  has_many :activities
+  has_many :activities, dependent: :destroy
+  has_many_attached :attachments
 end

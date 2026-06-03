@@ -29,9 +29,7 @@
           <%= form_with url: new_task_path, method: :get, scope: :task, class: "space-y-4" do |f| %>
             <div>
               <%= f.label :board_id, "Target Board", class: "block text-sm font-semibold mb-2" %>
-              <%= f.collection_select :board_id, @boards, :id, :name,
-                  { prompt: "Select a board" },
-                  { class: "w-full h-[38px] px-2 rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm", onchange: "this.form.requestSubmit()" } %>
+              <%= f.collection_select :board_id, @boards, :id, :name, { prompt: "Select a board" }, { class: "w-full h-[38px] px-2 rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm", onchange: "this.form.requestSubmit()" } %>
             </div>
           <% end %>
           <% if @selected_board.blank? %>
@@ -58,6 +56,10 @@
               <div class="md:col-span-6">
                 <%= f.label :description, class: "block text-sm font-medium mb-2" %>
                 <%= f.text_area :description, rows: 4, placeholder: "Describe the scope, goals, or acceptance criteria...", class: "h-[70px] px-2 w-full rounded-lg border-gray-300 shadow-sm focus:outline-blue-600 text-sm" %>
+              </div>
+              <div class="md:col-span-2">
+                <%= f.label :attachments, "Attachments", class: "block text-sm font-medium mb-2" %>
+                <%= f.file_field :attachments, multiple: true, class: "block text-sm" %>
               </div>
               <!-- Status -->
               <div class="md:col-span-3">

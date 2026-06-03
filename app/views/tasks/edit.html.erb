@@ -43,6 +43,10 @@
               <%= f.label :description, class: "block text-sm font-medium mb-2" %>
               <%= f.text_area :description, rows: 4, class: "h-[70px] px-2 w-full rounded-lg border-gray-300 shadow-sm focus:outline-blue-600 text-sm" %>
             </div>
+            <div class="md:col-span-2">
+              <%= f.label :attachments, "Attachments", class: "block text-sm font-medium mb-2" %>
+              <%= f.file_field :attachments, multiple: true, class: "block text-sm" %>
+            </div>
             <!-- Status -->
             <div class="md:col-span-3">
               <%= f.label :status_id, "Status", class: "block text-sm font-medium mb-2" %>
