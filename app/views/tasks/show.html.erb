@@ -90,7 +90,7 @@
               <% end %>
             </div>
           </div>
-        <!-- Timeline -->
+          <!-- Timeline -->
           <div class="mb-8">
             <h2 class="mb-5 text-lg font-bold text-gray-900">Timeline</h2>
             <div class="grid gap-5 md:grid-cols-2">
@@ -203,14 +203,13 @@
             <% end %>
           </div>
           <!-- Activity & Comments -->
-          <div class="pt-6 border-t border-gray-200 mb-8">
-            <h2 class="mb-5 text-lg font-bold text-gray-900">Activity & Comments</h2>
-            <div class="flex flex-col items-center justify-center rounded-xl border border-dashed border-gray-200 bg-white py-8 text-center">
-              <svg class="mb-2 h-8 w-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
-              </svg>
-              <p class="text-sm text-gray-400">No activity yet</p>
+          <div class="pt-6 border-t border-gray-200 mb-8" data-controller="tabs" data-tabs-active-value="activity">
+            <div class="border-b border-gray-200 flex gap-6 mb-6">
+              <button data-tabs-target="tab" data-action="click->tabs#switch" data-tabs-tab-param="activity" class="pb-3 text-sm font-medium border-b-2 border-gray-900 text-gray-900"> Activity </button>
+              <button data-tabs-target="tab" data-action="click->tabs#switch" data-tabs-tab-param="comments" class="pb-3 text-sm font-medium border-b-2 border-transparent text-gray-400 flex items-center gap-1.5"> Comments <span class="text-xs bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded-full"> <%= @task.comments.count %> </span> </button>
             </div>
+            <div data-tabs-target="panel" data-tabs-panel="activity"></div>
+            <div data-tabs-target="panel" data-tabs-panel="comments" hidden></div>
           </div>
           <!-- Metadata -->
           <div class="pt-4 border-t border-gray-200">
@@ -222,4 +221,4 @@
       </div>
     </div>
   </div>
-</turbo-frame>
+</turbo-frame>  
