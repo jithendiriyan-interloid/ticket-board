@@ -87,17 +87,6 @@
                     <span data-sidebar-target="label">Profile</span>
                   <% end %>
                 </li>
-                <li>
-                  <%= link_to edit_user_path(current_user), class: "flex items-center gap-2.5 px-3 py-3 hover:bg-slate-100 rounded-lg transition-all" do %>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="size-[18px] shrink-0 fill-current overflow-hidden" viewBox="0 0 32 32" aria-hidden="true">
-                      <g data-name="Layer 2">
-                        <path d="M24.915 3.663a3.15 3.15 0 0 0-2.688-1.554H9.774a3.15 3.15 0 0 0-2.688 1.554L.859 14.446a3.15 3.15 0 0 0 0 3.15l6.227 10.742a3.15 3.15 0 0 0 2.688 1.554h12.453a3.15 3.15 0 0 0 2.688-1.554l6.226-10.784a3.15 3.15 0 0 0 0-3.15zm4.41 12.841-6.227 10.784a1.05 1.05 0 0 1-.871.504H9.774a1.05 1.05 0 0 1-.872-.504L2.676 16.504a1.05 1.05 0 0 1 0-1.05L8.902 4.713a1.05 1.05 0 0 1 .872-.504h12.453a1.05 1.05 0 0 1 .871.504l6.227 10.783a1.05 1.05 0 0 1 0 1.008" />
-                        <path d="M16 9.7a6.3 6.3 0 1 0 6.3 6.3A6.3 6.3 0 0 0 16 9.7m0 10.5a4.2 4.2 0 1 1 4.2-4.2 4.2 4.2 0 0 1-4.2 4.2" />
-                      </g>
-                    </svg>
-                    <span data-sidebar-target="lable">Setting</span>
-                  <% end %>
-                </li>
               </ul>
               <!-- Toggle button anchored to the right edge of the sidebar -->
               <button data-action="click->sidebar#toggle" data-sidebar-target="toggle"

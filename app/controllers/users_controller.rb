@@ -21,7 +21,12 @@ class UsersController < ApplicationController
     else
       @user.update(profile_params)
     end
-    render :edit
+      respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace("profile_picture", partial: "users/profile_picture")
+      end
+        format.html { render :edit }
+    end
   end
 
   def set_user
