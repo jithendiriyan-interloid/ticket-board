@@ -28,4 +28,7 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  users:
+    updated: "Profile updated successfully"
+    deleted: "Account was deleted successfully"
+    delete_failed: "Unable to delete"

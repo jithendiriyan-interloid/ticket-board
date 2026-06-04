@@ -12,3 +12,18 @@ body{
     height: 100vh;
     width: 100%;
 }
+/* Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+<<<<<<< HEAD
+}
+=======
+}
+>>>>>>> 82166d6 (Userprofile section UI Updated)

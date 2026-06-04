@@ -8,3 +8,4 @@ export default class extends Controller {
     this.toggleTarget.classList.toggle("-right-10")
   }
 }
+
