@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-   before_action :set_user
+
   def edit
   end
 
@@ -7,30 +7,20 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    if @user.soft_delete!
-      redirect_to root_path,  notice: t("users.deleted")
+    if current_user.soft_delete!
+      redirect_to root_path,  notice: "Account was deleted successfully"
     else
-      redirect_to edit_user_path(current_user), alert: t("users.delete_failed")
-    end
-  end
-  def update
-    if params[:remove_avatar]
-      @user.avatar.purge
-    elsif params.dig(:user, :avatar).present?
-      @user.update(avatar: params[:user][:avatar])
-    else
-      @user.update(profile_params)
-    end
-      respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: turbo_stream.replace("profile_picture", partial: "users/profile_picture")
-      end
-        format.html { render :edit }
+      redirect_to edit_user_path(current_user), alert: "Unable to delete"
     end
   end
 
-  def set_user
-    @user = current_user
+  def update
+    current_user.avatar.purge if params.dig(:user, :remove_avatar) == "1"
+    if current_user.update(profile_params.except(:remove_avatar))
+      redirect_to edit_user_path(current_user), notice: "Profile updated successfully"
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   private
