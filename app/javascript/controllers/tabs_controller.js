@@ -1,8 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="tabs"
 export default class extends Controller {
-  static targets = ["tabs","panel"]
+  static targets = ["tab","panel"]
   static values = {active:{type:String, default:"activity"}}
   connect() {
     this.showTab(this.activeValue)

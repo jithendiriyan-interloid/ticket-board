@@ -1,78 +1,142 @@
-<div class="max-w-4xl mt-12 mx-auto p-6">
-  <div class="bg-white rounded-2xl shadow-sm border border-gray-200">
-    <div class="flex items-start justify-between border-b border-gray-200 p-6">
-      <div>
-        <p class="text-sm text-gray-500">Task</p>
-        <h1 class="text-2xl font-bold text-gray-900"><%= @subtask.title %></h1>
-      </div>
-      <div class="flex items-center gap-2">
-        <%= link_to edit_task_subtask_path(@task, @subtask), class: "inline-flex items-center gap-1.5 text-sm px-3 py-1.5 border border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50 transition" do %>
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Z"/>
+<turbo-frame id="modal">
+  <div data-controller="drawer" data-action="click->drawer#backdropClose" class="fixed inset-0 z-[100] bg-black/40">
+    <div data-drawer-target="panel" class="absolute right-0 top-0 h-full w-[42%] overflow-y-auto bg-white shadow-2xl transform transition-transform duration-300 ease-out">
+
+      <%# ── Header ── %>
+      <div class="sticky top-0 z-10 bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-medium uppercase tracking-widest text-gray-400">Subtask</span>
+        </div>
+        <button onclick="document.querySelector('[data-drawer-target=panel]').parentElement.click()" class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
           </svg>
-          Edit
-        <% end %>
-        <%= link_to task_subtask_path(@task, @subtask), method: :delete, data: { turbo_method: :delete, confirm: "Delete this workspace?" }, class: "inline-flex items-center gap-1.5 text-sm px-3 py-1.5 border border-red-200 rounded-lg text-red-600 hover:bg-red-50 transition" do %>
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"/>
-          </svg>
-          Delete
-        <% end %>
+        </button>
       </div>
-    </div>
-    <div class="p-6 space-y-6">
-      <% if @subtask.description.present? %>
-        <div>
-          <h3 class="text-sm font-semibold text-gray-700 mb-2">Description</h3>
-          <p class="text-gray-600 whitespace-pre-wrap"><%= @subtask.description %></p>
-        </div>
-      <% end %>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div>
-          <h3 class="text-sm font-semibold text-gray-700 mb-1">Status</h3>
-          <p class="text-gray-600"><%= @subtask.status&.name || "-" %></p>
-        </div>
-        <div>
-          <h3 class="text-sm font-semibold text-gray-700 mb-1">Assignee</h3>
-          <p class="text-gray-600"><%= @subtask.assignee&.email || "Unassigned" %></p>
-        </div>
-        <div>
-          <h3 class="text-sm font-semibold text-gray-700 mb-1">Story Points</h3>
-          <p class="text-gray-600"><%= @subtask.story_point&.label || "-" %></p>
-        </div>
-<div>
-  <h3 class="text-sm font-semibold text-gray-700 mb-1">Parent Task</h3>
-  <%= link_to @task.title,
-      task_path(@task),
-      class: "text-blue-600 hover:text-blue-700 hover:underline" %>
-</div>
-        <div>
-          <h3 class="text-sm font-semibold text-gray-700 mb-1">Start Date</h3>
-          <p class="text-gray-600"><%= @subtask.start_date || "-" %></p>
-        </div>
-        <div>
-          <h3 class="text-sm font-semibold text-gray-700 mb-1">End Date</h3>
-          <p class="text-gray-600"><%= @subtask.end_date || "-" %></p>
+
+      <%# ── Title + Actions ── %>
+      <div class="px-6 pt-5 pb-4 border-b border-gray-100">
+        <h1 class="text-xl font-semibold text-gray-900 mb-4"><%= @subtask.title %></h1>
+        <div class="flex items-center gap-2">
+          <%= link_to edit_task_subtask_path(@task, @subtask), class: "inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-md text-gray-600 hover:bg-gray-100 transition" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Z"/>
+            </svg>
+            Edit
+          <% end %>
+          <%= link_to task_subtask_path(@task, @subtask), data: { turbo_method: :delete, turbo_confirm: "Delete this subtask?" }, class: "inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 bg-red-50 border border-red-100 rounded-md text-red-500 hover:bg-red-100 transition" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"/>
+            </svg>
+            Delete
+          <% end %>
         </div>
       </div>
-      <% if @subtask.attachments.attached? %>
+
+      <div class="px-6 py-5 space-y-6">
+        <%# Description %>
+        <% if @subtask.description.present? %>
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Description</p>
+            <p class="text-sm text-gray-600 leading-relaxed whitespace-pre-wrap"><%= @subtask.description %></p>
+          </div>
+        <% end %>
+
+        <%# Meta grid %>
         <div>
-          <h3 class="text-sm font-semibold text-gray-700 mb-3">Attachments</h3>
-          <div class="space-y-2">
-            <% @subtask.attachments.each do |attachment| %>
-              <div class="flex items-center justify-between rounded-lg border border-gray-200 p-3">
-                <span class="text-sm text-gray-700">
-                  <%= attachment.filename %>
-                </span>
-                <%= link_to "Download", rails_blob_path(attachment, disposition: "attachment"), class: "text-blue-600 hover:text-blue-700 text-sm font-medium" %>
-              </div>
-            <% end %>
+          <p class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">Details</p>
+          <div class="rounded-xl border border-gray-100 overflow-hidden divide-y divide-gray-100">
+
+            <div class="flex items-center justify-between px-4 py-3">
+              <span class="text-xs font-medium text-gray-500 flex items-center gap-2">
+                <svg class="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                </svg>
+                Status
+              </span>
+              <% if @subtask.status&.name %>
+                <span class="text-xs font-medium px-2.5 py-1 bg-indigo-50 text-indigo-600 rounded-full"><%= @subtask.status.name %></span>
+              <% else %>
+                <span class="text-xs text-gray-400">—</span>
+              <% end %>
+            </div>
+
+            <div class="flex items-center justify-between px-4 py-3">
+              <span class="text-xs font-medium text-gray-500 flex items-center gap-2">
+                <svg class="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/>
+                </svg>
+                Assignee
+              </span>
+              <span class="text-xs text-gray-700 font-medium"><%= @subtask.assignee&.email || "Unassigned" %></span>
+            </div>
+
+            <div class="flex items-center justify-between px-4 py-3">
+              <span class="text-xs font-medium text-gray-500 flex items-center gap-2">
+                <svg class="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5"/>
+                </svg>
+                Story Points
+              </span>
+              <span class="text-xs text-gray-700 font-medium"><%= @subtask.story_point&.label || "—" %></span>
+            </div>
+
+            <div class="flex items-center justify-between px-4 py-3">
+              <span class="text-xs font-medium text-gray-500 flex items-center gap-2">
+                <svg class="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"/>
+                </svg>
+                Parent Task
+              </span>
+              <%= link_to @task.title, task_path(@task), class: "text-xs text-blue-600 hover:text-blue-700 font-medium hover:underline truncate max-w-[55%]" %>
+            </div>
+
+            <div class="flex items-center justify-between px-4 py-3">
+              <span class="text-xs font-medium text-gray-500 flex items-center gap-2">
+                <svg class="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/>
+                </svg>
+                Start Date
+              </span>
+              <span class="text-xs text-gray-700 font-medium"><%= @subtask.start_date&.strftime("%b %d, %Y") || "—" %></span>
+            </div>
+
+            <div class="flex items-center justify-between px-4 py-3">
+              <span class="text-xs font-medium text-gray-500 flex items-center gap-2">
+                <svg class="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/>
+                </svg>
+                End Date
+              </span>
+              <span class="text-xs text-gray-700 font-medium"><%= @subtask.end_date&.strftime("%b %d, %Y") || "—" %></span>
+            </div>
+
           </div>
         </div>
-      <% end %>
-      <div class="pt-4 border-t border-gray-200">
-        <%= link_to "Back to Board", boards_path(project_id: @task.project_id), class: "text-sm font-medium text-blue-600 hover:text-blue-700" %>
+
+        <%# Attachments %>
+        <% if @subtask.attachments.attached? %>
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">Attachments</p>
+            <div class="space-y-2">
+              <% @subtask.attachments.each do |attachment| %>
+                <div class="flex items-center justify-between rounded-lg border border-gray-100 bg-gray-50 px-4 py-2.5">
+                  <div class="flex items-center gap-2 min-w-0">
+                    <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01-.01.01m5.699-9.941-7.81 7.81a1.5 1.5 0 0 0 2.112 2.13"/>
+                    </svg>
+                    <span class="text-xs text-gray-700 truncate"><%= attachment.filename %></span>
+                  </div>
+                  <%= link_to rails_blob_path(attachment, disposition: "attachment"), class: "text-xs font-medium text-blue-600 hover:text-blue-700 shrink-0 ml-3" do %>
+                    Download
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
       </div>
     </div>
   </div>
-</div>
+</turbo-frame>

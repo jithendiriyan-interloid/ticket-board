@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :tasks do
     patch :move, on: :member
     resources :subtasks
+    resources :comments, only: [:create, :destroy]
   end
   resources :workspaces
   resources :boards do

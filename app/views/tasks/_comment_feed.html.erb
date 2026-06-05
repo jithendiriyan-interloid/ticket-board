@@ -1,0 +1,26 @@
+<%= turbo_frame_tag "comments_#{task.id}" do %>
+  <div id="comments_list" class="flex flex-col gap-4 mb-5">
+    <% if task.comments.any? %>
+      <% task.comments.order(:created_at).each do |comment| %>
+        <%= render "tasks/comment", comment: comment %>
+      <% end %>
+    <% else %>
+      <p id="no_comments" class="text-sm text-gray-400 text-center py-4">No comments yet</p>
+    <% end %>
+  </div>
+
+  <div class="border-t border-gray-100 pt-4 flex gap-3 items-start">
+    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-xs font-bold text-white flex-shrink-0">
+      <%= current_user.email.first.upcase %>
+    </div>
+    <%# No turbo_frame_tag here — let turbo stream handle it %>
+    <div id="comment_form" class="flex-1">
+      <%= form_with model: [task, Comment.new] do |f| %>
+        <%= f.text_area :description, rows: 2, placeholder: "Add a comment…", class: "w-full text-sm px-3 py-2 border border-gray-200 rounded-lg resize-none focus:outline-none focus:ring-1 focus:ring-blue-300" %>
+        <div class="flex justify-end mt-2">
+          <%= f.submit "Comment", class: "text-sm px-4 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 cursor-pointer font-medium transition-colors" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
