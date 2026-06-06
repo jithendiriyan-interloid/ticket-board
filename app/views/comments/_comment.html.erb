@@ -1,0 +1,47 @@
+<div id="<%= dom_id(comment) %>" class="flex gap-3">
+  <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-xs font-bold text-white flex-shrink-0">
+    <%= comment.user.email.first.upcase %>
+  </div>
+
+  <div class="flex-1 bg-gray-50 rounded-lg px-3.5 py-2.5 border border-gray-100">
+    <div class="flex justify-between mb-1">
+      <span class="text-sm font-medium text-gray-900"><%= comment.user.email %></span>
+      <span class="text-xs text-gray-400"><%= time_ago_in_words(comment.created_at) %> ago</span>
+    </div>
+
+    <%# Show mode %>
+    <div id="<%= dom_id(comment, :show) %>">
+      <p class="text-sm text-gray-600 leading-relaxed"><%= comment.description %></p>
+    </div>
+
+    <%# Edit mode %>
+    <div id="<%= dom_id(comment, :edit) %>" class="hidden">
+      <%= render "comments/edit_comment", comment: comment %>
+    </div>
+  </div>
+
+  <div class="relative" data-controller="dropdown">
+    <button data-action="click->dropdown#toggle" class="rounded hover:bg-gray-100">
+      <svg fill="#000000" height="20px" width="20px" viewBox="-10.58 -10.58 53.22 53.22" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.968,12.061C1.775,12.061,0,13.835,0,16.027c0,2.192,1.773,3.967,3.968,3.967c2.189,0,3.966-1.772,3.966-3.967 C7.934,13.835,6.157,12.061,3.968,12.061z M16.233,12.061c-2.188,0-3.968,1.773-3.968,3.965c0,2.192,1.778,3.967,3.968,3.967 s3.97-1.772,3.97-3.967C20.201,13.835,18.423,12.061,16.233,12.061z M28.09,12.061c-2.192,0-3.969,1.774-3.969,3.967 c0,2.19,1.774,3.965,3.969,3.965c2.188,0,3.965-1.772,3.965-3.965S30.278,12.061,28.09,12.061z"/>
+      </svg>
+    </button>
+
+    <div data-dropdown-target="menu" class="hidden absolute right-0 w-18 bg-gray-100 rounded shadow-lg border border-gray-200 z-10">
+      <button type="button"
+        onclick="
+          document.getElementById('<%= dom_id(comment, :edit) %>').classList.remove('hidden');
+          document.getElementById('<%= dom_id(comment, :show) %>').classList.add('hidden');
+          this.closest('[data-dropdown-target=menu]').classList.add('hidden')
+        "
+        class="w-full text-left px-2 py-1 text-sm text-gray-700 hover:bg-gray-200">
+        Edit
+      </button>
+
+      <%= button_to "Delete", task_comment_path(comment.task, comment),
+          method: :delete,
+          form: { data: { turbo_confirm: "Delete this comment?" } },
+          class: "w-full text-left px-2 py-1 text-sm text-red-600 hover:bg-red-100" %>
+    </div>
+  </div>
+</div>

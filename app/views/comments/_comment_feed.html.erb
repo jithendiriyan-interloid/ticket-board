@@ -2,7 +2,7 @@
   <div id="comments_list" class="flex flex-col gap-4 mb-5">
     <% if task.comments.any? %>
       <% task.comments.order(:created_at).each do |comment| %>
-        <%= render "tasks/comment", comment: comment %>
+        <%= render "comments/comment", comment: comment %>
       <% end %>
     <% else %>
       <p id="no_comments" class="text-sm text-gray-400 text-center py-4">No comments yet</p>

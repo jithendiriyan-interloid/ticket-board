@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_02_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_06_121511) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -43,10 +43,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_02_000000) do
   end
 
   create_table "activities", force: :cascade do |t|
-    t.bigint "comment_id", null: false
+    t.string "action"
+    t.bigint "comment_id"
     t.datetime "created_at", null: false
     t.text "description"
-    t.bigint "subtask_id", null: false
+    t.bigint "subtask_id"
     t.bigint "task_id", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false

@@ -1,0 +1,12 @@
+<%= form_with model: [@task, comment] do |f| %>
+  <%= f.text_area :description, rows: 2,
+      class: "w-full text-sm px-3 py-2 border border-gray-200 rounded-lg resize-none focus:outline-none focus:ring-1 focus:ring-blue-300" %>
+  <div class="flex gap-2 justify-end mt-2">
+    <button type="button"
+      onclick="document.getElementById('<%= dom_id(comment, :edit) %>').classList.add('hidden'); document.getElementById('<%= dom_id(comment, :show) %>').classList.remove('hidden')"
+      class="text-sm px-3 py-1 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-100">
+      Cancel
+    </button>
+    <%= f.submit "Save", class: "text-sm px-4 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 cursor-pointer" %>
+  </div>
+<% end %>

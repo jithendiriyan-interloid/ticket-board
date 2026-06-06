@@ -1,6 +1,6 @@
 <turbo-frame id="modal">
   <div data-controller="drawer" data-action="click->drawer#backdropClose" class="fixed inset-0 z-[100] bg-black/40"> 
-    <div data-drawer-target="panel" class="absolute right-0 top-0 h-full w-[40%] overflow-y-auto bg-gradient-to-b from-white to-gray-50 shadow-2xl transform transition-transform duration-300 ease-out">
+    <div data-drawer-target="panel" class="absolute right-0 top-0 h-full w-[35%] overflow-y-auto bg-gradient-to-b from-white to-gray-50 shadow-2xl transform transition-transform duration-300 ease-out">
       <!-- Close Button -->
       <button onclick="document.querySelector('[data-drawer-target=panel]').parentElement.click()" class="absolute top-6 right-6 text-gray-400 hover:text-gray-600 z-10">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -35,27 +35,27 @@
           <div class="mb-8">
             <h2 class="mb-5 text-lg font-bold text-gray-900">Overview</h2>
             <div class="grid gap-5 md:grid-cols-2">
-              <div class="bg-white rounded-lg border border-gray-200 p-4 hover:border-gray-300 transition-colors">
+              <div class="bg-white rounded-lg border border-gray-200 px-4 py-2 hover:border-gray-300 transition-colors">
                 <p class="text-xs font-semibold uppercase tracking-widest text-gray-500">Status</p>
                 <p class="mt-2 text-sm font-medium text-gray-900"><%= @task.status&.name || "No Status" %></p>
               </div>
-              <div class="bg-white rounded-lg border border-gray-200 p-4 hover:border-gray-300 transition-colors">
+              <div class="bg-white rounded-lg border border-gray-200 px-4 py-2  hover:border-gray-300 transition-colors">
                 <p class="text-xs font-semibold uppercase tracking-widest text-gray-500">Board</p>
                 <p class="mt-2 text-sm font-medium text-gray-900"><%= @task.project&.name || "—" %></p>
               </div>
-              <div class="bg-white rounded-lg border border-gray-200 p-4 hover:border-gray-300 transition-colors">
+              <div class="bg-white rounded-lg border border-gray-200 px-4 py-2  hover:border-gray-300 transition-colors">
                 <p class="text-xs font-semibold uppercase tracking-widest text-gray-500">Type</p>
                 <p class="mt-2 text-sm font-medium text-gray-900"><%= @task.task_type&.name || "—" %></p>
               </div>
-              <div class="bg-white rounded-lg border border-gray-200 p-4 hover:border-gray-300 transition-colors">
+              <div class="bg-white rounded-lg border border-gray-200 px-4 py-2  hover:border-gray-300 transition-colors">
                 <p class="text-xs font-semibold uppercase tracking-widest text-gray-500">Story Points</p>
                 <p class="mt-2 text-sm font-medium text-gray-900"><%= @task.story_point&.label || "—" %></p>
               </div>
-              <div class="bg-white rounded-lg border border-gray-200 p-4 hover:border-gray-300 transition-colors">
+              <div class="bg-white rounded-lg border border-gray-200 px-4 py-2  hover:border-gray-300 transition-colors">
                 <p class="text-xs font-semibold uppercase tracking-widest text-gray-500">Label</p>
                 <p class="mt-2 text-sm font-medium text-gray-900"><%= @task.label&.name || "—" %></p>
               </div>
-              <div class="bg-white rounded-lg border border-gray-200 p-4 hover:border-gray-300 transition-colors">
+              <div class="bg-white rounded-lg border border-gray-200 px-4 py-2  hover:border-gray-300 transition-colors">
                 <p class="text-xs font-semibold uppercase tracking-widest text-gray-500">Assigned To</p>
                 <div class="mt-2 flex items-center gap-2">
                   <div class="h-7 w-7 flex-shrink-0 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-xs font-bold text-white">
@@ -69,7 +69,7 @@
           <!-- Description -->
           <div class="mb-8">
             <h2 class="mb-5 text-lg font-bold text-gray-900">Description</h2>
-            <div class="bg-white rounded-lg border border-gray-200 p-5">
+            <div class="bg-white rounded-lg border border-gray-200 px-4 py-2">
               <p class="text-sm text-gray-700 leading-relaxed">
                 <%= @task.description.present? ? @task.description : '<span class="text-gray-400 italic">No description provided</span>'.html_safe %>
               </p>
@@ -96,11 +96,11 @@
           <div class="mb-8">
             <h2 class="mb-5 text-lg font-bold text-gray-900">Timeline</h2>
             <div class="grid gap-5 md:grid-cols-2">
-              <div class="bg-white rounded-lg border border-gray-200 p-4 hover:border-gray-300 transition-colors">
+              <div class="bg-white rounded-lg border border-gray-200 px-4 py-2 hover:border-gray-300 transition-colors">
                 <p class="text-xs font-semibold uppercase tracking-widest text-gray-500">Start Date</p>
                 <p class="mt-2 text-sm font-medium text-gray-900"><%= @task.start_date&.strftime("%d %b %Y") || "—" %></p>
               </div>
-              <div class="bg-white rounded-lg border border-gray-200 p-4 hover:border-gray-300 transition-colors">
+              <div class="bg-white rounded-lg border border-gray-200 px-4 py-2 hover:border-gray-300 transition-colors">
                 <p class="text-xs font-semibold uppercase tracking-widest text-gray-500">End Date</p>
                 <p class="mt-2 text-sm font-medium text-gray-900">
                   <% if @task.end_date %>
@@ -214,10 +214,10 @@
           <div class="pt-6 border-t border-gray-200 mb-8" data-controller="tabs" data-tabs-active-value="activity">
             <div class="border-b border-gray-200 flex gap-6 mb-6">
               <button data-tabs-target="tab" data-action="click->tabs#switch" data-tabs-tab-param="activity" class="pb-3 text-sm font-medium border-b-2 border-gray-900 text-gray-900"> Activity </button>
-              <button data-tabs-target="tab" data-action="click->tabs#switch" data-tabs-tab-param="comments" class="pb-3 text-sm font-medium border-b-2 border-transparent text-gray-400 flex items-center gap-1.5"> Comments <span class="text-xs bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded-full"> <%= @task.comments.count %> </span> </button>
+              <button data-tabs-target="tab" data-action="click->tabs#switch" data-tabs-tab-param="comments" class="pb-3 text-sm font-medium border-b-2 border-transparent text-gray-400 flex items-center gap-1.5"> Comments </button>
             </div>
-            <div data-tabs-target="panel" data-tabs-panel="activity"> <%= render "tasks/activity_feed", activities:@activity %> </div>
-            <div data-tabs-target="panel" data-tabs-panel="comments"> <%= render "tasks/comment_feed", task: @task %> </div>
+            <div data-tabs-target="panel" data-tabs-panel="activity"> <%= render "activities/activity_feed", activities:@activity %> </div>
+            <div data-tabs-target="panel" data-tabs-panel="comments"> <%= render "comments/comment_feed", task: @task %> </div>
           </div>
           <!--  -->
           <div class="pt-4 border-t border-gray-200">

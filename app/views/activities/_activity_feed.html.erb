@@ -1,0 +1,9 @@
+<div id="activity_feed" class="flex flex-col gap-3">
+  <% if activities&.any? %>
+    <% activities.each do |activity| %>
+      <%= render "activities/activity", activity: activity %>
+    <% end %>
+  <% else %>
+    <p class="text-sm text-gray-400 text-center py-4">No activity yet</p>
+  <% end %>
+</div>

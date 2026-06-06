@@ -1,9 +1,7 @@
 class BoardsController < ApplicationController
   before_action :load_board_dependencies, only: [ :new, :create, :edit, :update ]
-  before_action :set_board, only: [ :edit, :update ]
 
   def index
-    @user = current_user
     @statuses = Status.order(:id)
     @project = policy_scope(Project).find(params[:project_id]) if params[:project_id].present?
     @boards = policy_scope(Board)
@@ -35,10 +33,12 @@ class BoardsController < ApplicationController
   end
 
   def edit
+    @board = policy_scope(Board).find(params[:id])
     authorize @board
   end
 
   def update
+    @board = policy_scope(Board).find(params[:id])
     @board.assign_attributes(board_params)
     authorize @board
     if @board.save
@@ -49,9 +49,6 @@ class BoardsController < ApplicationController
   end
 
   private
-  def set_board
-    @board = policy_scope(Board).find(params[:id])
-  end
 
   def load_board_dependencies
     @workspaces = policy_scope(Workspace).active.order(:name)

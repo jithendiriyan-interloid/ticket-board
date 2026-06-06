@@ -48,6 +48,7 @@ class TasksController < ApplicationController
     @task = accessible_tasks
             .includes(:status, :project, :task_type, :story_point, :label, :assignee, subtasks: [ :status, :story_point, :assignee ])
             .find(params[:id])
+    @activity = @task.activities.includes(:user).order(created_at: :desc) 
     @subtask = @task.subtasks.build(
       status: @task.status,
       story_point: @task.story_point

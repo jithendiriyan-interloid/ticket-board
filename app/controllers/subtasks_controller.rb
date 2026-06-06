@@ -23,6 +23,7 @@ class SubtasksController < ApplicationController
   def show
     @task = Task.find(params[:task_id])
     @subtask = @task.subtasks.find(params[:id])
+    @subtasks = @task.subtasks.includes(:status, :assignee, :story_point) 
   end
   def edit
   end
@@ -42,7 +43,7 @@ class SubtasksController < ApplicationController
   def destroy
     @subtask.destroy
 
-    redirect_to task_redirect_path, notice: "Subtask deleted"
+    redirect_to task_redirect_path, alert: "Subtask deleted"
   end
 
   private
