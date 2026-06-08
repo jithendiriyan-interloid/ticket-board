@@ -6,7 +6,5 @@ class Subtask < ApplicationRecord
              class_name: 'User',
              foreign_key: :assignee_id,
              optional: true
-
-  has_many :activities, dependent: :destroy
   has_many_attached :attachments
 end

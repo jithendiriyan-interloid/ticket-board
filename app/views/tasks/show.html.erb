@@ -216,7 +216,7 @@
               <button data-tabs-target="tab" data-action="click->tabs#switch" data-tabs-tab-param="activity" class="pb-3 text-sm font-medium border-b-2 border-gray-900 text-gray-900"> Activity </button>
               <button data-tabs-target="tab" data-action="click->tabs#switch" data-tabs-tab-param="comments" class="pb-3 text-sm font-medium border-b-2 border-transparent text-gray-400 flex items-center gap-1.5"> Comments </button>
             </div>
-            <div data-tabs-target="panel" data-tabs-panel="activity"> <%= render "activities/activity_feed", activities:@activity %> </div>
+            <div data-tabs-target="panel" data-tabs-panel="activity"> <%= render "activities/activity_feed", activities: @activities %> </div>
             <div data-tabs-target="panel" data-tabs-panel="comments"> <%= render "comments/comment_feed", task: @task %> </div>
           </div>
           <!--  -->

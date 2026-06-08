@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_06_121511) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_08_090036) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -43,16 +43,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_06_121511) do
   end
 
   create_table "activities", force: :cascade do |t|
-    t.string "action"
-    t.bigint "comment_id"
+    t.text "action"
     t.datetime "created_at", null: false
-    t.text "description"
-    t.bigint "subtask_id"
     t.bigint "task_id", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
-    t.index ["comment_id"], name: "index_activities_on_comment_id"
-    t.index ["subtask_id"], name: "index_activities_on_subtask_id"
     t.index ["task_id"], name: "index_activities_on_task_id"
     t.index ["user_id"], name: "index_activities_on_user_id"
   end
@@ -243,8 +238,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_06_121511) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "activities", "comments"
-  add_foreign_key "activities", "subtasks"
   add_foreign_key "activities", "tasks"
   add_foreign_key "activities", "users"
   add_foreign_key "board_sections", "boards"

@@ -119,7 +119,7 @@
                                       </div>
                                     </div>
                                   <% else %>
-                                    <span class="truncate rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-500"> Unassigned </span>
+                                    <span class="truncate rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-500 cursor-pointer" title="Unassigned"> U </span>
                                   <% end %>
                                   <% if task.start_date.present? && task.end_date.present? %>
                                     <% overdue = task.end_date < Date.today && task.status&.name != "Done" %>

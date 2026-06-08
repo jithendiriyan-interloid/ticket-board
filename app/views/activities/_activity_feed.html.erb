@@ -1,3 +1,4 @@
+<%= turbo_stream_from "activities_#{@task.id}" %>
 <div id="activity_feed" class="flex flex-col gap-3">
   <% if activities&.any? %>
     <% activities.each do |activity| %>
