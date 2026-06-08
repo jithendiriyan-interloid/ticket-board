@@ -19,7 +19,7 @@
           <div class="space-y-2">
             <% @subtasks.each do |subtask| %>
               <turbo-frame id="subtask_<%= subtask.id %>">
-                <div class="border border-gray-100 rounded-xl bg-white overflow-hidden mb-2" data-controller="dropdown">
+                <div class="border border-gray-100 rounded-lg bg-white overflow-hidden mb-2" data-controller="dropdown">
                   <%# Row header %>
                   <div class="flex items-center gap-2.5 px-4 py-3 cursor-pointer hover:bg-gray-50 transition"
                        data-action="click->dropdown#toggle">
@@ -29,7 +29,7 @@
                     </svg>
                     <span class="text-sm font-medium text-gray-900 flex-1 truncate"><%= subtask.title %></span>
                     <% if subtask.status&.name %>
-                      <span class="text-xs font-medium px-2.5 py-0.5 rounded-full
+                      <span class="text-xs font-medium px-2.5 py-0.5 rounded-lg
                         <%= subtask.status.name == 'Done'        ? 'bg-green-50 text-green-600' :
                             subtask.status.name == 'In Progress' ? 'bg-amber-50 text-amber-600' :
                                                                    'bg-gray-100 text-gray-500' %>">

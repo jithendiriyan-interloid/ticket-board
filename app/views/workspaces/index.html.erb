@@ -10,7 +10,7 @@
         <%= link_to "Create Workspace", new_workspace_path, data: { turbo_frame: "modal" }, class: "px-4 py-2 bg-blue-600 text-white rounded-lg text-sm" %>
       <% end %>
     </div>
-    <div class="overflow-x-auto bg-white border border-slate-200 rounded-xl shadow-sm">
+    <div class="overflow-x-auto bg-white border border-slate-200 rounded-lg shadow-sm">
       <table class="min-w-full">
         <thead class="bg-slate-50 border-b border-slate-200">
           <tr>
@@ -34,7 +34,7 @@
               </td>
               <td class="px-6 py-4">
                 <div class="flex justify-center gap-2">
-                  <%= link_to "View", workspace_path(workspace), class: "px-3 py-2 text-sm bg-slate-200 rounded-md" %>
+                  <%= link_to "View", workspace_path(workspace), class: "px-3 py-2 text-sm bg-slate-200 rounded-lg" %>
                 </div>
               </td>
             </tr>
@@ -44,7 +44,7 @@
     </div>
   <% else %>
     <div class="max-w-md mx-auto mt-32 text-center">
-      <div class="bg-white border border-slate-200 rounded-xl p-8 shadow-sm">
+      <div class="bg-white border border-slate-200 rounded-lg p-8 shadow-sm">
         <h2 class="text-xl font-semibold text-slate-900">
           No Workspaces Found
         </h2>
