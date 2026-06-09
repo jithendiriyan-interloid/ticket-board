@@ -35,24 +35,28 @@
                   <input type="text"placeholder="Search..."class="w-full rounded-lg border border-gray-200 bg-white py-2 pl-9 pr-3 text-sm  focus:outline-none focus:ring-2 focus:ring-blue-500"/>
                 </div>
               </div>
-
               <!-- Create DropDown -->
-                <div data-controller="dropdown" class="relative flex ">
-                <button data-dropdown-target="button" data-action="click->dropdown#toggle" class="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-50 sm:px-4 lg:px-5">Create</button>
+              <div data-controller="dropdown" class="relative flex ">
+                <button data-dropdown-target="button" data-action="click->dropdown#toggle" class="inline-flex items-center gap-1.5 rounded-md bg-blue-600 px-2 py-1.5 text-sm font-medium text-white hover:bg-blue-700">
+          
+                  <svg class="h-5 w-5"viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="0.00024000000000000003" transform="matrix(1, 0, 0, 1, 0, 0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="1.152"></g><g id="SVGRepo_iconCarrier"> 
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M12.7071 14.7071C12.3166 15.0976 11.6834 15.0976 11.2929 14.7071L6.29289 9.70711C5.90237 9.31658 5.90237 8.68342 6.29289 8.29289C6.68342 7.90237 7.31658 7.90237 7.70711 8.29289L12 12.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L12.7071 14.7071Z" fill="#ffffff"></path> </g></svg>
+                  
+                  Create
+                </button>
                 <div data-dropdown-target="menu" class="hidden absolute top-16 right-0 w-[200px] bg-white rounded-md shadow-lg z-10">
                   <%= link_to "Project",new_project_path, data: { turbo_frame: "modal" }, class:"block px-4 py-2 hover:bg-gray-100 hover:rounded-md"%>
                   <%= link_to "Task",new_task_path, data: { turbo_frame: "modal" }, class:"block px-4 py-2 hover:bg-gray-100 hover:rounded-md"%>
                   <%= link_to "Worksapce",new_workspace_path, data: { turbo_frame: "modal" }, class:"block px-4 py-2 hover:bg-gray-100 hover:rounded-md"%>
-
                 </div>
               </div>
               <!--DropDown-->
               <div data-controller="dropdown" class="relative flex ">
                 <button data-dropdown-target="button" data-action="click->dropdown#toggle" class="rounded-md focus:outline-none">
                   <% if current_user.avatar.attached? && current_user.avatar.blob&.persisted? %>
-                    <%= image_tag url_for(current_user.avatar), class: "w-8 h-8 rounded-full object-cover" %>
+                    <%= image_tag url_for(current_user.avatar), class: "w-10 h-10 rounded-full object-cover" %>
                   <% else %>
-                    <%= image_tag "default_avatar.jpg", class: "w-8 h-8 rounded-lg object-cover" %>
+                    <%= image_tag "default_avatar.jpg", class: "w-10 h-10 rounded-lg object-cover" %>
                   <% end %>
                 </button>
                 <div data-dropdown-target="menu" class="hidden absolute top-16 right-0 w-[270px] bg-white rounded-md shadow-lg z-10">
@@ -135,7 +139,7 @@
               </ul>
               <!-- Toggle button anchored to the right edge of the sidebar -->
               <button data-action="click->sidebar#toggle" data-sidebar-target="toggle"
-                class="absolute -right-4  mt-2 top-6 z-50 h-8 w-8 flex items-center justify-center border border-slate-300 rounded-lg bg-white shadow-md">
+                class="absolute -right-4  mt-2 top-6 z-50 h-8 w-8 flex items-center justify-center border border-slate-300 rounded-full bg-white shadow-md">
                 <svg data-sidebar-target="icon" xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 transition-all duration-300 ease-in-out" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                 </svg>
