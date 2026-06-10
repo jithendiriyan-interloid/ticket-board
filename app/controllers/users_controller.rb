@@ -13,9 +13,10 @@ class UsersController < ApplicationController
       redirect_to edit_user_path(current_user), alert: "Unable to delete"
     end
   end
-
   def update
-    current_user.avatar.purge if params.dig(:user, :remove_avatar) == "1"
+    if ActiveModel::Type::Boolean.new.cast(params.dig(:user, :remove_avatar))
+      current_user.avatar.purge
+    end
     if current_user.update(profile_params.except(:remove_avatar))
       redirect_to edit_user_path(current_user), notice: "Profile updated successfully"
     else
@@ -24,7 +25,6 @@ class UsersController < ApplicationController
   end
 
   private
-
   def profile_params
     params.require(:user).permit(
       :first_name,
